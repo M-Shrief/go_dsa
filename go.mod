@@ -1,3 +1,3 @@
-module github.com/M-Shrief/go-ds-practice
+module github.com/M-Shrief/go-dsa-practice
 
 go 1.21.2
