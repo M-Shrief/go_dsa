@@ -1,5 +1,7 @@
 package linkedlist
 
+import "fmt"
+
 type DoublyLinkedList[T any] struct {
 	Size int
 	Head *DoublyNode[T]
@@ -133,4 +135,10 @@ func (list *DoublyLinkedList[T]) DeleteNode(pos int) (T, bool) {
 
 	return removedVal, true
 
+}
+
+func (list *DoublyLinkedList[T]) Display() {
+	for current := list.Head; current != nil; current = current.Next {
+		fmt.Println(current.Val)
+	}
 }
