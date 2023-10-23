@@ -4,16 +4,16 @@ import (
 	"fmt"
 )
 
-type SinglyLinkedList[T any] struct {
+type Singly[T any] struct {
 	Size int
 	Head *Node[T]
 }
 
-func NewSinglyLinkedList[T any]() *SinglyLinkedList[T] {
-	return &SinglyLinkedList[T]{}
+func NewSingly[T any]() *Singly[T] {
+	return &Singly[T]{}
 }
 
-func (list *SinglyLinkedList[T]) GetNode(pos int) any {
+func (list *Singly[T]) GetNode(pos int) any {
 
 	if pos < 0 || pos >= list.Size {
 		return nil
@@ -31,14 +31,14 @@ func (list *SinglyLinkedList[T]) GetNode(pos int) any {
 	return current.Val
 }
 
-func (list *SinglyLinkedList[T]) AddFirst(val T) {
+func (list *Singly[T]) AddFirst(val T) {
 	n := NewNode(val)
 	n.Next = list.Head
 	list.Head = n
 	list.Size++
 }
 
-func (list *SinglyLinkedList[T]) AddLast(val T) {
+func (list *Singly[T]) AddLast(val T) {
 	n := NewNode(val)
 
 	if list.Head == nil {
@@ -55,7 +55,7 @@ func (list *SinglyLinkedList[T]) AddLast(val T) {
 	list.Size++
 }
 
-func (list *SinglyLinkedList[T]) DeleteFirst() (T, bool) {
+func (list *Singly[T]) DeleteFirst() (T, bool) {
 	if list.Head == nil {
 		var r T
 		return r, false
@@ -68,7 +68,7 @@ func (list *SinglyLinkedList[T]) DeleteFirst() (T, bool) {
 	return current.Val, true
 }
 
-func (list *SinglyLinkedList[T]) DeleteLast() (T, bool) {
+func (list *Singly[T]) DeleteLast() (T, bool) {
 	if list.Head == nil {
 		var r T
 		return r, false
@@ -91,7 +91,7 @@ func (list *SinglyLinkedList[T]) DeleteLast() (T, bool) {
 	return returnedValue, true
 }
 
-func (list *SinglyLinkedList[T]) DeleteNode(pos int) (T, bool) {
+func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 
 	if pos < 0 || pos >= list.Size {
 		var r T
@@ -117,7 +117,7 @@ func (list *SinglyLinkedList[T]) DeleteNode(pos int) (T, bool) {
 	return removed, true
 }
 
-func (list *SinglyLinkedList[T]) Reverse() {
+func (list *Singly[T]) Reverse() {
 	var prev, next *Node[T]
 	current := list.Head
 
@@ -132,7 +132,7 @@ func (list *SinglyLinkedList[T]) Reverse() {
 	list.Head = prev
 }
 
-func (list *SinglyLinkedList[T]) Display() {
+func (list *Singly[T]) Display() {
 	for current := list.Head; current != nil; current = current.Next {
 		fmt.Println(current.Val)
 	}

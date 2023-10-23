@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-func TestSinglyLinkedList(t *testing.T) {
+func TestSingly(t *testing.T) {
 
 	t.Run("Test AddFirst()", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
@@ -22,7 +22,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	})
 
 	t.Run("Test AddFirst()", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
@@ -43,7 +43,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	})
 
 	t.Run("Test AddLast()", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
@@ -65,7 +65,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	})
 
 	t.Run("Test DeleteFirst()", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
@@ -83,7 +83,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	})
 
 	t.Run("Test DeleteLast()", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
@@ -101,7 +101,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	})
 
 	t.Run("Test DeleteNode(pos)", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
@@ -124,7 +124,7 @@ func TestSinglyLinkedList(t *testing.T) {
 	})
 
 	t.Run("Test Reverse()", func(t *testing.T) {
-		list := NewSinglyLinkedList[int]()
+		list := NewSingly[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
 		list.AddFirst(3)
