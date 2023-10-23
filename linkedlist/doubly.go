@@ -108,3 +108,29 @@ func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
 
 	return node.Val, true
 }
+
+func (list *DoublyLinkedList[T]) DeleteNode(pos int) (T, bool) {
+	if pos < 0 || pos >= list.Size {
+		var r T
+		return r, false
+	}
+	if pos == 0 {
+		return list.DeleteFirst()
+	}
+	if pos == list.Size-1 {
+		return list.DeleteLast()
+	}
+
+	current := list.Head
+	for count := 0; count < pos-1; count++ {
+		current = current.Next
+	}
+
+	removedVal := current.Next.Val
+	current.Next = current.Next.Next
+	current.Next.Prev = current
+	list.Size--
+
+	return removedVal, true
+
+}

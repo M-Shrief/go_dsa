@@ -191,4 +191,33 @@ func TestDoubly(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got3, 0)
 		}
 	})
+	t.Run("Test DeleteNode()", func(t *testing.T) {
+		list := NewDoublyLinkedList[int]()
+		list.AddLast(1)
+		list.AddLast(2)
+		list.AddLast(3)
+
+		want := int(2)
+		got, ok := list.DeleteNode(1)
+		if !ok {
+			t.Error("unexpected not-ok")
+		}
+		if got != want {
+			t.Errorf("got: %v, want: %v", got, want)
+		}
+
+		want2 := int(3)
+		got2 := list.Head.Next.Val
+
+		if got2 != want2 {
+			t.Errorf("got: %v, want: %v", got2, want2)
+		}
+
+		want3 := int(1)
+		got3 := list.Tail.Prev.Val
+
+		if got3 != want3 {
+			t.Errorf("got: %v, want: %v", got3, want3)
+		}
+	})
 }
