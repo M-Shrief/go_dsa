@@ -100,7 +100,7 @@ func TestSinglyLinkedList(t *testing.T) {
 		}
 	})
 
-	t.Run("Test DeleteAt(pos)", func(t *testing.T) {
+	t.Run("Test DeleteNode(pos)", func(t *testing.T) {
 		list := NewSinglyLinkedList[int]()
 		list.AddFirst(1)
 		list.AddFirst(2)
@@ -114,6 +114,12 @@ func TestSinglyLinkedList(t *testing.T) {
 		}
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
+		}
+
+		want2 := 1
+		got2 := list.Head.Next.Val
+		if got2 != want2 {
+			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
 	})
 

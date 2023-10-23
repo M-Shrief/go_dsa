@@ -111,7 +111,7 @@ func (list *SinglyLinkedList[T]) DeleteNode(pos int) (T, bool) {
 	}
 
 	removed := current.Next.Val
-	current.Next.Next = current.Next
+	current.Next = current.Next.Next
 	list.Size--
 
 	return removed, true
