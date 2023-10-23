@@ -107,4 +107,88 @@ func TestDoubly(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", val4, want4)
 		}
 	})
+
+	t.Run("Test DeleteFirst()", func(t *testing.T) {
+		list := NewDoublyLinkedList[int]()
+		list.AddFirst(1)
+		list.AddFirst(2)
+		list.AddFirst(3)
+
+		want := int(3)
+		got, ok := list.DeleteFirst()
+		if !ok {
+			t.Error("Not Okay")
+		}
+		if got != want {
+			t.Errorf("Got: %v, Want: %v", got, want)
+		}
+
+		want2 := int(2)
+		got2, ok2 := list.DeleteFirst()
+		if !ok2 {
+			t.Error("Not Okay")
+		}
+		if got2 != want2 {
+			t.Errorf("Got: %v, Want: %v", got2, want2)
+		}
+
+		want3 := int(1)
+		got3, ok3 := list.DeleteFirst()
+		if !ok3 {
+			t.Error("Not Okay")
+		}
+		if got3 != want3 {
+			t.Errorf("Got: %v, Want: %v", got3, want3)
+		}
+
+		got4, ok4 := list.DeleteFirst()
+		if ok4 != false {
+			t.Error("Not Okay")
+		}
+		if got4 != 0 {
+			t.Errorf("Got: %v, Want: %v", got3, 0)
+		}
+	})
+
+	t.Run("Test DeleteLast()", func(t *testing.T) {
+		list := NewDoublyLinkedList[int]()
+		list.AddLast(1)
+		list.AddLast(2)
+		list.AddLast(3)
+
+		want := int(3)
+		got, ok := list.DeleteLast()
+		if !ok {
+			t.Error("Not Okay")
+		}
+		if got != want {
+			t.Errorf("Got: %v, Want: %v", got, want)
+		}
+
+		want2 := int(2)
+		got2, ok2 := list.DeleteLast()
+		if !ok2 {
+			t.Error("Not Okay")
+		}
+		if got2 != want2 {
+			t.Errorf("Got: %v, Want: %v", got2, want2)
+		}
+
+		want3 := int(1)
+		got3, ok3 := list.DeleteLast()
+		if !ok3 {
+			t.Error("Not Okay")
+		}
+		if got3 != want3 {
+			t.Errorf("Got: %v, Want: %v", got3, want3)
+		}
+
+		got4, ok4 := list.DeleteLast()
+		if ok4 != false {
+			t.Error("Not Okay")
+		}
+		if got4 != 0 {
+			t.Errorf("Got: %v, Want: %v", got3, 0)
+		}
+	})
 }

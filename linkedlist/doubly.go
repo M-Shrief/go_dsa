@@ -68,3 +68,43 @@ func (list *DoublyLinkedList[T]) AddLast(val T) {
 	list.Tail = n
 	list.Size++
 }
+
+func (list *DoublyLinkedList[T]) DeleteFirst() (T, bool) {
+	if list.Size == 0 {
+		var r T
+		return r, false
+	}
+
+	node := list.Head
+
+	if list.Size == 1 {
+		list.Head = nil
+		list.Tail = nil
+		list.Size--
+		return node.Val, true
+	}
+
+	list.Head = node.Next
+	list.Head.Prev = nil
+	list.Size--
+
+	return node.Val, true
+}
+
+func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
+	if list.Size == 0 {
+		var r T
+		return r, false
+	}
+
+	if list.Size == 1 {
+		return list.DeleteFirst()
+	}
+
+	node := list.Tail
+	list.Tail = node.Prev
+	list.Tail.Next = nil
+	list.Size--
+
+	return node.Val, true
+}
