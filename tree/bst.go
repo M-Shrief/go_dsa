@@ -43,3 +43,33 @@ func NewBST[T constraints.Ordered]() *BST[T] {
 func (bst *BST[T]) GetSize() int {
 	return bst.size
 }
+
+func (bst *BST[T]) Insert(data T) {
+	if bst.size == 0 {
+		newNode := NewBSNode[T](data)
+		bst.root = newNode
+		bst.size++
+	} else {
+		bst.insertNode(bst.root, data)
+	}
+}
+
+func (bst *BST[T]) insertNode(current *BSNode[T], data T) {
+	if data <= current.val {
+		if current.left != nil {
+			bst.insertNode(current.left, data)
+		} else {
+			newNode := NewBSNode[T](data)
+			current.left = newNode
+			bst.size++
+		}
+	} else {
+		if current.right != nil {
+			bst.insertNode(current.right, data)
+		} else {
+			newNode := NewBSNode[T](data)
+			current.right = newNode
+			bst.size++
+		}
+	}
+}
