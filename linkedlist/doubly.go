@@ -2,6 +2,28 @@ package linkedlist
 
 import "fmt"
 
+type DoublyNode[T any] struct {
+	val  T
+	next *DoublyNode[T]
+	prev *DoublyNode[T]
+}
+
+func NewDoublyNode[T any](val T) *DoublyNode[T] {
+	return &DoublyNode[T]{val, nil, nil}
+}
+
+func (n *DoublyNode[T]) GetVal() T {
+	return n.val
+}
+
+func (n *DoublyNode[T]) GetNext() *DoublyNode[T] {
+	return n.next
+}
+
+func (n *DoublyNode[T]) GetPrev() *DoublyNode[T] {
+	return n.prev
+}
+
 type DoublyLinkedList[T any] struct {
 	Size int
 	Head *DoublyNode[T]
@@ -37,7 +59,7 @@ func (list *DoublyLinkedList[T]) GetNode(pos int) any {
 	current := list.Head
 
 	for count := 0; count < pos; count++ {
-		current = current.Next
+		current = current.next
 	}
 
 	return current
@@ -50,11 +72,11 @@ func (list *DoublyLinkedList[T]) AddFirst(val T) {
 		list.Size++
 		return
 	}
-	n.Next = list.Head
-	list.Head.Prev = n
+	n.next = list.Head
+	list.Head.prev = n
 	list.Head = n
 	if list.Size == 1 {
-		list.Tail = n.Next
+		list.Tail = n.next
 	}
 	list.Size++
 }
@@ -65,8 +87,8 @@ func (list *DoublyLinkedList[T]) AddLast(val T) {
 		return
 	}
 	n := NewDoublyNode(val)
-	list.GetTail().Next = n
-	n.Prev = list.GetTail()
+	list.GetTail().next = n
+	n.prev = list.GetTail()
 	list.Tail = n
 	list.Size++
 }
@@ -83,14 +105,14 @@ func (list *DoublyLinkedList[T]) DeleteFirst() (T, bool) {
 		list.Head = nil
 		list.Tail = nil
 		list.Size--
-		return node.Val, true
+		return node.val, true
 	}
 
-	list.Head = node.Next
-	list.Head.Prev = nil
+	list.Head = node.next
+	list.Head.prev = nil
 	list.Size--
 
-	return node.Val, true
+	return node.val, true
 }
 
 func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
@@ -104,11 +126,11 @@ func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
 	}
 
 	node := list.Tail
-	list.Tail = node.Prev
-	list.Tail.Next = nil
+	list.Tail = node.prev
+	list.Tail.next = nil
 	list.Size--
 
-	return node.Val, true
+	return node.val, true
 }
 
 func (list *DoublyLinkedList[T]) DeleteNode(pos int) (T, bool) {
@@ -125,12 +147,12 @@ func (list *DoublyLinkedList[T]) DeleteNode(pos int) (T, bool) {
 
 	current := list.Head
 	for count := 0; count < pos-1; count++ {
-		current = current.Next
+		current = current.next
 	}
 
-	removedVal := current.Next.Val
-	current.Next = current.Next.Next
-	current.Next.Prev = current
+	removedVal := current.next.val
+	current.next = current.next.next
+	current.next.prev = current
 	list.Size--
 
 	return removedVal, true
@@ -138,7 +160,7 @@ func (list *DoublyLinkedList[T]) DeleteNode(pos int) (T, bool) {
 }
 
 func (list *DoublyLinkedList[T]) Display() {
-	for current := list.Head; current != nil; current = current.Next {
-		fmt.Println(current.Val)
+	for current := list.Head; current != nil; current = current.next {
+		fmt.Println(current.val)
 	}
 }

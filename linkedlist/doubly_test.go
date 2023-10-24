@@ -14,29 +14,29 @@ func TestDoubly(t *testing.T) {
 
 		want := int(2)
 		got := list.GetNode(1).(*DoublyNode[int])
-		if got.Val != want {
+		if got.val != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
 
 		n1 := list.GetHead()
-		val1 := n1.Val
+		val1 := n1.val
 		want1 := int(3)
 		if val1 != want1 {
 			t.Errorf("Got: %v, Want: %v", val1, want1)
 		}
-		n2 := n1.Next
-		val2 := n2.Val
+		n2 := n1.next
+		val2 := n2.val
 		want2 := int(2)
 		if val2 != want2 {
 			t.Errorf("Got: %v, Want: %v", val2, want2)
 		}
 		want3 := list.GetHead()
-		val3 := n2.Prev
+		val3 := n2.prev
 		if !reflect.DeepEqual(val3, want3) {
 			t.Errorf("Got: %v, Want: %v", val3, want3)
 		}
 		want4 := list.GetTail()
-		val4 := n2.Next
+		val4 := n2.next
 		if !reflect.DeepEqual(val4, want4) {
 			t.Errorf("Got: %v, Want: %v", val4, want4)
 		}
@@ -48,30 +48,30 @@ func TestDoubly(t *testing.T) {
 		list.AddLast(3)
 
 		want := int(2)
-		got := list.GetNode(1).(*DoublyNode[int]).Val
+		got := list.GetNode(1).(*DoublyNode[int]).val
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
 
 		n1 := list.GetHead()
-		val1 := n1.Val
+		val1 := n1.val
 		want1 := int(1)
 		if val1 != want1 {
 			t.Errorf("Got: %v, Want: %v", val1, want1)
 		}
-		n2 := n1.Next
-		val2 := n2.Val
+		n2 := n1.next
+		val2 := n2.val
 		want2 := int(2)
 		if val2 != want2 {
 			t.Errorf("Got: %v, Want: %v", val2, want2)
 		}
 		want3 := list.GetHead()
-		val3 := n2.Prev
+		val3 := n2.prev
 		if !reflect.DeepEqual(val3, want3) {
 			t.Errorf("Got: %v, Want: %v", val3, want3)
 		}
 		want4 := list.GetTail()
-		val4 := n2.Next
+		val4 := n2.next
 		if !reflect.DeepEqual(val4, want4) {
 			t.Errorf("Got: %v, Want: %v", val4, want4)
 		}
@@ -89,13 +89,13 @@ func TestDoubly(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", val1, want1)
 		}
 
-		want2 := want1.Next
+		want2 := want1.next
 		val2 := list.GetNode(1)
 		if !reflect.DeepEqual(val2, want2) {
 			t.Errorf("Got: %v, Want: %v", val2, want2)
 		}
 
-		want3 := want2.Next
+		want3 := want2.next
 		val3 := list.GetNode(2)
 		if !reflect.DeepEqual(val3, want3) {
 			t.Errorf("Got: %v, Want: %v", val3, want3)
@@ -207,14 +207,14 @@ func TestDoubly(t *testing.T) {
 		}
 
 		want2 := int(3)
-		got2 := list.Head.Next.Val
+		got2 := list.Head.next.val
 
 		if got2 != want2 {
 			t.Errorf("got: %v, want: %v", got2, want2)
 		}
 
 		want3 := int(1)
-		got3 := list.Tail.Prev.Val
+		got3 := list.Tail.prev.val
 
 		if got3 != want3 {
 			t.Errorf("got: %v, want: %v", got3, want3)
