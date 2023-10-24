@@ -31,11 +31,11 @@ func TestSingly(t *testing.T) {
 		got := []int{}
 
 		current := list.Head
-		got = append(got, current.Val)
+		got = append(got, current.val)
 
-		for current.Next != nil {
-			current = current.Next
-			got = append(got, current.Val)
+		for current.next != nil {
+			current = current.next
+			got = append(got, current.val)
 		}
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("Got: %v, want: %v", got, want)
@@ -53,11 +53,11 @@ func TestSingly(t *testing.T) {
 		got := []int{}
 
 		current := list.Head
-		got = append(got, current.Val)
+		got = append(got, current.val)
 
-		for current.Next != nil {
-			current = current.Next
-			got = append(got, current.Val)
+		for current.next != nil {
+			current = current.next
+			got = append(got, current.val)
 		}
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("Got: %v, Want: %v", got, want)
@@ -117,7 +117,7 @@ func TestSingly(t *testing.T) {
 		}
 
 		want2 := 1
-		got2 := list.Head.Next.Val
+		got2 := list.Head.next.val
 		if got2 != want2 {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
@@ -134,11 +134,11 @@ func TestSingly(t *testing.T) {
 
 		list.Reverse()
 		current := list.Head
-		got = append(got, current.Val)
+		got = append(got, current.val)
 
-		for current.Next != nil {
-			current = current.Next
-			got = append(got, current.Val)
+		for current.next != nil {
+			current = current.next
+			got = append(got, current.val)
 		}
 
 		if !reflect.DeepEqual(got, want) {

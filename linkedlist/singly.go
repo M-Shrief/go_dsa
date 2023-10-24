@@ -4,6 +4,23 @@ import (
 	"fmt"
 )
 
+type Node[T any] struct {
+	val  T
+	next *Node[T]
+}
+
+func NewNode[T any](val T) *Node[T] {
+	return &Node[T]{val, nil}
+}
+
+func (n *Node[T]) GetVal() T {
+	return n.val
+}
+
+func (n *Node[T]) GetNext() *Node[T] {
+	return n.next
+}
+
 type Singly[T any] struct {
 	Size int
 	Head *Node[T]
@@ -19,21 +36,21 @@ func (list *Singly[T]) GetNode(pos int) any {
 		return nil
 	}
 	if pos == 0 {
-		return list.Head.Val
+		return list.Head.val
 	}
 
 	current := list.Head
 
 	for count := 0; count < pos; count++ {
-		current = current.Next
+		current = current.next
 	}
 
-	return current.Val
+	return current.val
 }
 
 func (list *Singly[T]) AddFirst(val T) {
 	n := NewNode(val)
-	n.Next = list.Head
+	n.next = list.Head
 	list.Head = n
 	list.Size++
 }
@@ -48,10 +65,10 @@ func (list *Singly[T]) AddLast(val T) {
 	}
 
 	current := list.Head
-	for current.Next != nil {
-		current = current.Next
+	for current.next != nil {
+		current = current.next
 	}
-	current.Next = n
+	current.next = n
 	list.Size++
 }
 
@@ -62,10 +79,10 @@ func (list *Singly[T]) DeleteFirst() (T, bool) {
 	}
 
 	current := list.Head
-	list.Head = current.Next
+	list.Head = current.next
 	list.Size--
 
-	return current.Val, true
+	return current.val, true
 }
 
 func (list *Singly[T]) DeleteLast() (T, bool) {
@@ -74,18 +91,18 @@ func (list *Singly[T]) DeleteLast() (T, bool) {
 		return r, false
 	}
 
-	if list.Head.Next == nil {
+	if list.Head.next == nil {
 		return list.DeleteFirst()
 	}
 
 	current := list.Head
 
-	for current.Next.Next != nil {
-		current = current.Next
+	for current.next.next != nil {
+		current = current.next
 	}
 
-	returnedValue := current.Next.Val
-	current.Next = nil
+	returnedValue := current.next.val
+	current.next = nil
 	list.Size--
 
 	return returnedValue, true
@@ -107,11 +124,11 @@ func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 	current := list.Head
 
 	for count := 0; count < pos-1; count++ {
-		current = current.Next
+		current = current.next
 	}
 
-	removed := current.Next.Val
-	current.Next = current.Next.Next
+	removed := current.next.val
+	current.next = current.next.next
 	list.Size--
 
 	return removed, true
@@ -122,8 +139,8 @@ func (list *Singly[T]) Reverse() {
 	current := list.Head
 
 	for current != nil {
-		next = current.Next
-		current.Next = prev
+		next = current.next
+		current.next = prev
 
 		prev = current
 		current = next
@@ -133,7 +150,7 @@ func (list *Singly[T]) Reverse() {
 }
 
 func (list *Singly[T]) Display() {
-	for current := list.Head; current != nil; current = current.Next {
-		fmt.Println(current.Val)
+	for current := list.Head; current != nil; current = current.next {
+		fmt.Println(current.val)
 	}
 }
