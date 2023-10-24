@@ -97,3 +97,22 @@ func (bst *BST[T]) searchNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 		return bst.searchNode(node.right, data)
 	}
 }
+
+func (bst *BST[T]) Minimum() T {
+	if bst.size == 0 {
+		var r T
+		return r
+	}
+	return bst.minimumNode(bst.root)
+}
+
+func (bst *BST[T]) minimumNode(node *BSNode[T]) T {
+	if node == nil {
+		var r T
+		return r
+	} else if node.left == nil {
+		return node.val
+	} else {
+		return bst.minimumNode(node.left)
+	}
+}
