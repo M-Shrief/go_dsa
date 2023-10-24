@@ -1,6 +1,7 @@
 package tree
 
 import (
+	"reflect"
 	"testing"
 )
 
@@ -140,4 +141,42 @@ func TestBST(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
 	})
+
+	t.Run("Test GetParent()", func(t *testing.T) {
+		tree := NewBST[int]()
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		want := tree.root
+		got := tree.GetParent(2)
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("Got: %v, Want: %v", got, want)
+		}
+
+		want1 := tree.root.left
+		got1 := tree.GetParent(1)
+		if !reflect.DeepEqual(got1, want1) {
+			t.Errorf("Got: %v, Want: %v", got1, want1)
+		}
+		got2 := tree.GetParent(3)
+		if !reflect.DeepEqual(got2, want1) {
+			t.Errorf("Got: %v, Want: %v", got2, want1)
+		}
+
+		want2 := tree.root.right
+		got3 := tree.GetParent(6)
+		if !reflect.DeepEqual(got3, want2) {
+			t.Errorf("Got: %v, Want: %v", got3, want2)
+		}
+		got4 := tree.GetParent(8)
+		if !reflect.DeepEqual(got4, want2) {
+			t.Errorf("Got: %v, Want: %v", got4, want2)
+		}
+	})
+
 }

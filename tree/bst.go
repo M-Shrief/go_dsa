@@ -98,6 +98,32 @@ func (bst *BST[T]) searchNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 	}
 }
 
+func (bst *BST[T]) GetParent(data T) *BSNode[T] {
+	if bst.size == 0 {
+		return nil
+	} else {
+		return bst.getNodeParent(bst.root, data)
+	}
+}
+
+func (bst *BST[T]) getNodeParent(node *BSNode[T], data T) *BSNode[T] {
+	if data == node.val {
+		return nil
+	} else if data < node.val {
+		if data == node.left.val {
+			return node
+		} else {
+			return bst.getNodeParent(node.left, data)
+		}
+	} else {
+		if data == node.right.val {
+			return node
+		} else {
+			return bst.getNodeParent(node.right, data)
+		}
+	}
+}
+
 func (bst *BST[T]) Minimum() T {
 	if bst.size == 0 {
 		var r T
