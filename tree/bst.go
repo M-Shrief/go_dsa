@@ -89,9 +89,9 @@ func (bst *BST[T]) searchNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 		var r T
 		newNode := NewBSNode[T](r)
 		return newNode, false
-	} else if node.GetVal() == data {
+	} else if node.val == data {
 		return node, true
-	} else if data < node.GetVal() {
+	} else if data < node.val {
 		return bst.searchNode(node.left, data)
 	} else {
 		return bst.searchNode(node.right, data)
