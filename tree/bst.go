@@ -73,3 +73,27 @@ func (bst *BST[T]) insertNode(current *BSNode[T], data T) {
 		}
 	}
 }
+
+func (bst *BST[T]) Search(data T) (*BSNode[T], bool) {
+	if bst.size == 0 {
+		var r T
+		newNode := NewBSNode[T](r)
+		return newNode, false
+	} else {
+		return bst.searchNode(bst.root, data)
+	}
+}
+
+func (bst *BST[T]) searchNode(node *BSNode[T], data T) (*BSNode[T], bool) {
+	if node == nil {
+		var r T
+		newNode := NewBSNode[T](r)
+		return newNode, false
+	} else if node.GetVal() == data {
+		return node, true
+	} else if data < node.GetVal() {
+		return bst.searchNode(node.left, data)
+	} else {
+		return bst.searchNode(node.right, data)
+	}
+}
