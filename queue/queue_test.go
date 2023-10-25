@@ -11,6 +11,11 @@ func TestQueue(t *testing.T) {
 		queue.Enqueue(2)
 		queue.Enqueue(3)
 
+		size := queue.GetSize()
+		if size != 3 {
+			t.Errorf("Size: %v, Want: %v", size, 3)
+		}
+
 		want := int(1)
 		n := queue.GetFirst()
 		got := n.GetVal()
@@ -41,6 +46,10 @@ func TestQueue(t *testing.T) {
 
 		want := int(1)
 		got, ok := queue.Dequeue()
+		size := queue.GetSize()
+		if size != 2 {
+			t.Errorf("Size: %v, Want: %v", size, 2)
+		}
 
 		if !ok {
 			t.Error("Not Okay")
@@ -52,6 +61,10 @@ func TestQueue(t *testing.T) {
 
 		want2 := int(2)
 		got2, ok2 := queue.Dequeue()
+		size2 := queue.GetSize()
+		if size2 != 1 {
+			t.Errorf("Size: %v, Want: %v", size2, 1)
+		}
 
 		if !ok2 {
 			t.Error("Not Okay")
@@ -63,6 +76,10 @@ func TestQueue(t *testing.T) {
 
 		want3 := int(3)
 		got3, ok3 := queue.Dequeue()
+		size3 := queue.GetSize()
+		if size3 != 0 {
+			t.Errorf("Size: %v, Want: %v", size3, 0)
+		}
 
 		if !ok3 {
 			t.Error("Not Okay")
