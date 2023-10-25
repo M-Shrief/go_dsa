@@ -4,33 +4,33 @@ import (
 	"fmt"
 )
 
-type Node[T any] struct {
+type SinglyNode[T any] struct {
 	val  T
-	next *Node[T]
+	next *SinglyNode[T]
 }
 
-func NewNode[T any](val T) *Node[T] {
-	return &Node[T]{val, nil}
+func NewSinglyNode[T any](val T) *SinglyNode[T] {
+	return &SinglyNode[T]{val, nil}
 }
 
-func (n *Node[T]) GetVal() T {
+func (n *SinglyNode[T]) GetVal() T {
 	return n.val
 }
 
-func (n *Node[T]) GetNext() *Node[T] {
+func (n *SinglyNode[T]) GetNext() *SinglyNode[T] {
 	return n.next
 }
 
 type Singly[T any] struct {
 	size int
-	head *Node[T]
+	head *SinglyNode[T]
 }
 
 func NewSingly[T any]() *Singly[T] {
 	return &Singly[T]{}
 }
 
-func (list *Singly[T]) GetHead() *Node[T] {
+func (list *Singly[T]) GetHead() *SinglyNode[T] {
 	return list.head
 }
 
@@ -57,14 +57,14 @@ func (list *Singly[T]) GetNode(pos int) any {
 }
 
 func (list *Singly[T]) AddFirst(val T) {
-	n := NewNode(val)
+	n := NewSinglyNode(val)
 	n.next = list.head
 	list.head = n
 	list.size++
 }
 
 func (list *Singly[T]) AddLast(val T) {
-	n := NewNode(val)
+	n := NewSinglyNode(val)
 
 	if list.head == nil {
 		list.head = n
@@ -143,7 +143,7 @@ func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 }
 
 func (list *Singly[T]) Reverse() {
-	var prev, next *Node[T]
+	var prev, next *SinglyNode[T]
 	current := list.head
 
 	for current != nil {
