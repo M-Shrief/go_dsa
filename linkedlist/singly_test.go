@@ -30,7 +30,7 @@ func TestSingly(t *testing.T) {
 		want := []int{3, 2, 1}
 		got := []int{}
 
-		current := list.Head
+		current := list.head
 		got = append(got, current.val)
 
 		for current.next != nil {
@@ -52,7 +52,7 @@ func TestSingly(t *testing.T) {
 		want := []int{3, 2, 1, 4}
 		got := []int{}
 
-		current := list.Head
+		current := list.head
 		got = append(got, current.val)
 
 		for current.next != nil {
@@ -117,7 +117,7 @@ func TestSingly(t *testing.T) {
 		}
 
 		want2 := 1
-		got2 := list.Head.next.val
+		got2 := list.head.next.val
 		if got2 != want2 {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
@@ -133,7 +133,7 @@ func TestSingly(t *testing.T) {
 		got := []int{}
 
 		list.Reverse()
-		current := list.Head
+		current := list.head
 		got = append(got, current.val)
 
 		for current.next != nil {

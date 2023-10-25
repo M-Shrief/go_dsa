@@ -22,24 +22,32 @@ func (n *Node[T]) GetNext() *Node[T] {
 }
 
 type Singly[T any] struct {
-	Size int
-	Head *Node[T]
+	size int
+	head *Node[T]
 }
 
 func NewSingly[T any]() *Singly[T] {
 	return &Singly[T]{}
 }
 
+func (list *Singly[T]) GetHead() *Node[T] {
+	return list.head
+}
+
+func (list *Singly[T]) GetSize() int {
+	return list.size
+}
+
 func (list *Singly[T]) GetNode(pos int) any {
 
-	if pos < 0 || pos >= list.Size {
+	if pos < 0 || pos >= list.size {
 		return nil
 	}
 	if pos == 0 {
-		return list.Head.val
+		return list.head.val
 	}
 
-	current := list.Head
+	current := list.head
 
 	for count := 0; count < pos; count++ {
 		current = current.next
@@ -50,52 +58,52 @@ func (list *Singly[T]) GetNode(pos int) any {
 
 func (list *Singly[T]) AddFirst(val T) {
 	n := NewNode(val)
-	n.next = list.Head
-	list.Head = n
-	list.Size++
+	n.next = list.head
+	list.head = n
+	list.size++
 }
 
 func (list *Singly[T]) AddLast(val T) {
 	n := NewNode(val)
 
-	if list.Head == nil {
-		list.Head = n
-		list.Size++
+	if list.head == nil {
+		list.head = n
+		list.size++
 		return
 	}
 
-	current := list.Head
+	current := list.head
 	for current.next != nil {
 		current = current.next
 	}
 	current.next = n
-	list.Size++
+	list.size++
 }
 
 func (list *Singly[T]) DeleteFirst() (T, bool) {
-	if list.Head == nil {
+	if list.head == nil {
 		var r T
 		return r, false
 	}
 
-	current := list.Head
-	list.Head = current.next
-	list.Size--
+	current := list.head
+	list.head = current.next
+	list.size--
 
 	return current.val, true
 }
 
 func (list *Singly[T]) DeleteLast() (T, bool) {
-	if list.Head == nil {
+	if list.head == nil {
 		var r T
 		return r, false
 	}
 
-	if list.Head.next == nil {
+	if list.head.next == nil {
 		return list.DeleteFirst()
 	}
 
-	current := list.Head
+	current := list.head
 
 	for current.next.next != nil {
 		current = current.next
@@ -103,25 +111,25 @@ func (list *Singly[T]) DeleteLast() (T, bool) {
 
 	returnedValue := current.next.val
 	current.next = nil
-	list.Size--
+	list.size--
 
 	return returnedValue, true
 }
 
 func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 
-	if pos < 0 || pos >= list.Size {
+	if pos < 0 || pos >= list.size {
 		var r T
 		return r, false
 	}
 	if pos == 0 {
 		return list.DeleteFirst()
 	}
-	if pos == list.Size-1 {
+	if pos == list.size-1 {
 		return list.DeleteLast()
 	}
 
-	current := list.Head
+	current := list.head
 
 	for count := 0; count < pos-1; count++ {
 		current = current.next
@@ -129,14 +137,14 @@ func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 
 	removed := current.next.val
 	current.next = current.next.next
-	list.Size--
+	list.size--
 
 	return removed, true
 }
 
 func (list *Singly[T]) Reverse() {
 	var prev, next *Node[T]
-	current := list.Head
+	current := list.head
 
 	for current != nil {
 		next = current.next
@@ -146,11 +154,11 @@ func (list *Singly[T]) Reverse() {
 		current = next
 	}
 
-	list.Head = prev
+	list.head = prev
 }
 
 func (list *Singly[T]) Display() {
-	for current := list.Head; current != nil; current = current.next {
+	for current := list.head; current != nil; current = current.next {
 		fmt.Println(current.val)
 	}
 }
