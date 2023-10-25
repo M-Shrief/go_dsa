@@ -203,4 +203,107 @@ func TestBST(t *testing.T) {
 		}
 	})
 
+	t.Run("Test Remove()", func(t *testing.T) {
+		tree := NewBST[int]()
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		tree.Remove(2)
+		_, ok := tree.Search(2)
+		if ok != false {
+			t.Error("Not Okay")
+		}
+		replacement := tree.GetRoot().left
+		if replacement.val != 1 {
+			t.Errorf("Got: %v, Want: %v", replacement, 1)
+		}
+		if replacement.right.val != 3 {
+			t.Errorf("Got: %v, Want: %v", replacement, 3)
+		}
+		if tree.size != 6 {
+			t.Errorf("Size: %v, want: %v", tree.size, 6)
+		}
+
+		tree.Remove(1)
+		_, ok3 := tree.Search(1)
+		if ok3 != false {
+			t.Error("Not Okay")
+		}
+		replacement3 := tree.GetRoot().left
+		if replacement3.val != 3 {
+			t.Errorf("Got: %v, Want: %v", replacement3.val, 3)
+		}
+		if replacement3.left != nil {
+			t.Error("Replacement left is not nil")
+		}
+		if replacement3.right != nil {
+			t.Error("Replacement right is not nil")
+		}
+		if tree.size != 5 {
+			t.Errorf("Size: %v, want: %v", tree.size, 5)
+		}
+
+		tree.Remove(3)
+		_, ok4 := tree.Search(3)
+		if ok4 != false {
+			t.Error("Not Okay")
+		}
+		replacement4 := tree.GetRoot().left
+		if replacement4 != nil {
+			t.Error("Replacement is not nil")
+		}
+		if tree.size != 4 {
+			t.Errorf("Size: %v, want: %v", tree.size, 4)
+		}
+
+		tree.Remove(7)
+		_, ok2 := tree.Search(7)
+		if ok2 != false {
+			t.Error("Not Okay")
+		}
+
+		replacement2 := tree.GetRoot().right
+		if replacement2.val != 6 {
+			t.Errorf("Got: %v, Want: %v", replacement2.val, 6)
+		}
+		if replacement2.left != nil {
+			t.Errorf("Got: %v, Want: %v", replacement2, 8)
+		}
+
+		tree.Remove(8)
+		_, ok5 := tree.Search(8)
+		if ok5 != false {
+			t.Error("Not Okay")
+		}
+		replacement6 := tree.GetRoot().right.right
+		if replacement6 != nil {
+			t.Error("Replacement is not nil")
+		}
+
+		tree.Remove(6)
+		_, ok6 := tree.Search(6)
+		if ok6 != false {
+			t.Error("Not Okay")
+		}
+
+		replacement7 := tree.GetRoot().right
+		if replacement7 != nil {
+			t.Error("Replacement is not nil")
+		}
+
+		tree.Remove(5)
+		_, ok7 := tree.Search(5)
+		if ok7 != false {
+			t.Error("Not Okay")
+		}
+		if tree.root != nil {
+			t.Error("Root is not Nil")
+		}
+
+	})
 }

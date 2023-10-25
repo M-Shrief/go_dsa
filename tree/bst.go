@@ -120,6 +120,97 @@ func (bst *BST[T]) getNodeParent(node *BSNode[T], data T) *BSNode[T] {
 	}
 }
 
+func (bst *BST[T]) Remove(data T) bool {
+	if bst.size == 0 {
+		return false
+	} else if bst.size == 1 {
+		bst.root = nil
+		bst.size--
+		return true
+	} else {
+		_, ok := bst.removeNode(bst.root, data)
+		if ok {
+			bst.size--
+			return true
+		} else {
+			return false
+
+		}
+	}
+}
+
+func (bst *BST[T]) removeNode(node *BSNode[T], data T) (*BSNode[T], bool) {
+	if node == nil {
+		return node, false
+	} else if data < node.val { // if less, go left
+		return bst.removeNode(node.left, data)
+	} else if data > node.val { // if more, go right
+		return bst.removeNode(node.right, data)
+	} else {
+		ifLeftNodeExists := node.left != nil
+		ifRightNodeExists := node.right != nil
+
+		if ifLeftNodeExists && ifRightNodeExists {
+			// // if it have 2 childs:
+			// // set node.val to the maximum child in the left subtree.
+			// // then go back and delete that leaf key.
+			maximumValueInRightSubTree, _ := bst.maximumNode(node.left)
+			node.left, _ = bst.removeNode(node.left, maximumValueInRightSubTree)
+			node.val = maximumValueInRightSubTree
+			return node, true
+		} else if ifLeftNodeExists {
+			*node = *node.left
+			return node, true
+		} else if ifRightNodeExists {
+			*node = *node.right
+			return node, true
+		} else {
+			parent := bst.GetParent(node.val)
+
+			if node.val <= parent.val {
+				deletedNode := node.left
+				parent.left = nil
+				return deletedNode, true
+			} else {
+				deletedNode := node.right
+				parent.right = nil
+				return deletedNode, true
+			}
+		}
+
+		// ifLeftNodeIsNil := node.left == nil
+		// ifRightNodeIsNil := node.right == nil
+		// if ifLeftNodeIsNil && ifRightNodeIsNil {
+		// 	n := bst.GetParent(node.val)
+		// 	if n.val <= node.val {
+		// 		deletedNode := node.left
+		// 		n.left = nil
+		// 		return deletedNode
+		// 	} else {
+		// 		deletedNode := node.right
+		// 		n.right = nil
+		// 		return deletedNode
+		// 	}
+		// 	// node = nil
+		// 	// return node
+		// } else if ifLeftNodeIsNil {
+		// 	node = node.right
+		// 	return node
+		// } else if ifRightNodeIsNil {
+		// 	node = node.left
+		// 	return node
+		// } else {
+		// 	// // if it have 2 childs:
+		// 	// // set node.val to the smallest rightChild in the subtree.
+		// 	// // then go back and delete that leaf key.
+		// 	minimumValueInRightSubTree := bst.minimumNode(node.right)
+		// 	node.val = minimumValueInRightSubTree
+		// 	node.right = bst.removeNode(node.right, minimumValueInRightSubTree)
+		// 	return node
+		// }
+	}
+}
+
 func (bst *BST[T]) Minimum() (T, bool) {
 	if bst.size == 0 {
 		var r T
