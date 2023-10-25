@@ -120,39 +120,39 @@ func (bst *BST[T]) getNodeParent(node *BSNode[T], data T) *BSNode[T] {
 	}
 }
 
-func (bst *BST[T]) Minimum() T {
+func (bst *BST[T]) Minimum() (T, bool) {
 	if bst.size == 0 {
 		var r T
-		return r
+		return r, false
 	}
 	return bst.minimumNode(bst.root)
 }
 
-func (bst *BST[T]) minimumNode(node *BSNode[T]) T {
+func (bst *BST[T]) minimumNode(node *BSNode[T]) (T, bool) {
 	if node == nil {
 		var r T
-		return r
+		return r, false
 	} else if node.left == nil {
-		return node.val
+		return node.val, true
 	} else {
 		return bst.minimumNode(node.left)
 	}
 }
 
-func (bst *BST[T]) Maximum() T {
+func (bst *BST[T]) Maximum() (T, bool) {
 	if bst.size == 0 {
 		var r T
-		return r
+		return r, false
 	}
 	return bst.maximumNode(bst.root)
 }
 
-func (bst *BST[T]) maximumNode(node *BSNode[T]) T {
+func (bst *BST[T]) maximumNode(node *BSNode[T]) (T, bool) {
 	if node == nil {
 		var r T
-		return r
+		return r, false
 	} else if node.right == nil {
-		return node.val
+		return node.val, true
 	} else {
 		return bst.maximumNode(node.right)
 	}

@@ -137,8 +137,11 @@ func TestBST(t *testing.T) {
 		tree.Insert(8)
 
 		want := int(1)
-		got := tree.Minimum()
+		got, ok := tree.Minimum()
 
+		if !ok {
+			t.Error("Not Okay")
+		}
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
@@ -155,8 +158,10 @@ func TestBST(t *testing.T) {
 		tree.Insert(8)
 
 		want := int(8)
-		got := tree.Maximum()
-
+		got, ok := tree.Maximum()
+		if !ok {
+			t.Error("Not Okay")
+		}
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
