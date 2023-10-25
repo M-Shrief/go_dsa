@@ -17,14 +17,13 @@ func TestQueue(t *testing.T) {
 		}
 
 		want := int(1)
-		n := queue.GetFirst()
-		got := n.GetVal()
+		got := queue.GetFirst()
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
 
 		want2 := int(2)
-		n2 := n.GetNext()
+		n2 := queue.list.GetHead().GetNext()
 		got2 := n2.GetVal()
 		if got2 != want2 {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
@@ -97,8 +96,7 @@ func TestQueue(t *testing.T) {
 		queue.Enqueue(3)
 
 		want := int(1)
-		n := queue.GetFirst()
-		got := n.GetVal()
+		got := queue.GetFirst()
 
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
@@ -106,18 +104,14 @@ func TestQueue(t *testing.T) {
 
 		queue.Dequeue()
 		want2 := int(2)
-		n2 := queue.GetFirst()
-		got2 := n2.GetVal()
-
+		got2 := queue.GetFirst()
 		if got2 != want2 {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
 
 		queue.Dequeue()
 		want3 := int(3)
-		n3 := queue.GetFirst()
-		got3 := n3.GetVal()
-
+		got3 := queue.GetFirst()
 		if got3 != want3 {
 			t.Errorf("Got: %v, Want: %v", got3, want3)
 		}

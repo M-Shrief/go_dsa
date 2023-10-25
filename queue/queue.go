@@ -25,8 +25,8 @@ func (queue *Queue[T]) Dequeue() (T, bool) {
 	return val, ok
 }
 
-func (queue *Queue[T]) GetFirst() *linkedlist.SinglyNode[T] {
-	return queue.list.GetHead()
+func (queue *Queue[T]) GetFirst() T {
+	return queue.list.GetHead().GetVal()
 }
 
 func (queue *Queue[T]) GetSize() int {
