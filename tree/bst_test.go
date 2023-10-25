@@ -132,16 +132,35 @@ func TestBST(t *testing.T) {
 		tree.Insert(2)
 		tree.Insert(1)
 		tree.Insert(3)
+		tree.Insert(7)
 		tree.Insert(6)
+		tree.Insert(8)
 
 		want := int(1)
-		got := tree.minimumNode(tree.root)
+		got := tree.Minimum()
 
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
 	})
 
+	t.Run("Test minimunVal()", func(t *testing.T) {
+		tree := NewBST[int]()
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		want := int(8)
+		got := tree.Maximum()
+
+		if got != want {
+			t.Errorf("Got: %v, Want: %v", got, want)
+		}
+	})
 	t.Run("Test GetParent()", func(t *testing.T) {
 		tree := NewBST[int]()
 		tree.Insert(5)

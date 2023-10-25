@@ -142,3 +142,22 @@ func (bst *BST[T]) minimumNode(node *BSNode[T]) T {
 		return bst.minimumNode(node.left)
 	}
 }
+
+func (bst *BST[T]) Maximum() T {
+	if bst.size == 0 {
+		var r T
+		return r
+	}
+	return bst.maximumNode(bst.root)
+}
+
+func (bst *BST[T]) maximumNode(node *BSNode[T]) T {
+	if node == nil {
+		var r T
+		return r
+	} else if node.right == nil {
+		return node.val
+	} else {
+		return bst.maximumNode(node.right)
+	}
+}
