@@ -53,3 +53,19 @@ func (lru *LRU[T]) evict() bool {
 	lru.size--
 	return true
 }
+
+func (lru *LRU[T]) Get(key string) (T, bool) {
+	if lru.size == 0 {
+		var r T
+		return r, false
+	}
+	node, ok := lru.storage[key]
+	if !ok {
+		var r T
+		return r, false
+	}
+	lru.dl.DeleteByNode(node)
+	lru.dl.AddFirst(node.GetVal())
+	nodeVal := node.GetVal().value
+	return nodeVal, true
+}

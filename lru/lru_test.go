@@ -41,4 +41,31 @@ func TestLRU(t *testing.T) {
 			t.Errorf("got: %v, expected: %v", got5.GetVal().value, 3)
 		}
 	})
+
+	t.Run("Testing Get()", func(t *testing.T) {
+		lru := NewLRU[int](3)
+		lru.Put("one", 1)
+		lru.Put("two", 2)
+		lru.Put("three", 3)
+
+		got, ok := lru.Get("one")
+		if ok == false {
+			t.Error("Not Okay")
+		}
+		if got != 1 {
+			t.Errorf("got: %v, expected: %v", got, 1)
+		}
+		got2 := lru.dl.GetHead()
+		if got2.GetVal().value != 1 {
+			t.Errorf("got: %v, expected: %v", got2.GetVal().value, 1)
+		}
+		got3 := lru.dl.GetTail()
+		if got3.GetVal().value != 2 {
+			t.Errorf("got: %v, expected: %v", got3.GetVal().value, 2)
+		}
+		_, ok2 := lru.Get("four")
+		if ok2 != false {
+			t.Error("Not Okay")
+		}
+	})
 }
