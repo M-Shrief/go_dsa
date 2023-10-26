@@ -45,7 +45,7 @@ func (list *DoublyLinkedList[T]) GetTail() *DoublyNode[T] {
 	return list.Tail
 }
 
-func (list *DoublyLinkedList[T]) GetNode(pos int) any {
+func (list *DoublyLinkedList[T]) GetNode(pos int) *DoublyNode[T] {
 	if pos < 0 || pos >= list.Size {
 		return nil
 	}

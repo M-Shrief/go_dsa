@@ -13,7 +13,7 @@ func TestDoubly(t *testing.T) {
 		list.AddFirst(3)
 
 		want := int(2)
-		got := list.GetNode(1).(*DoublyNode[int])
+		got := list.GetNode(1)
 		if got.val != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
@@ -48,8 +48,8 @@ func TestDoubly(t *testing.T) {
 		list.AddLast(3)
 
 		want := int(2)
-		got := list.GetNode(1).(*DoublyNode[int]).val
-		if got != want {
+		got := list.GetNode(1)
+		if got.val != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
 
