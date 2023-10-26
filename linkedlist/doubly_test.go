@@ -40,6 +40,11 @@ func TestDoubly(t *testing.T) {
 		if !reflect.DeepEqual(val4, want4) {
 			t.Errorf("Got: %v, Want: %v", val4, want4)
 		}
+
+		size := list.size
+		if size != 3 {
+			t.Errorf("Size: %v, Want: %v", size, 3)
+		}
 	})
 	t.Run("Test AddLast()", func(t *testing.T) {
 		list := NewDoublyLinkedList[int]()
@@ -74,6 +79,10 @@ func TestDoubly(t *testing.T) {
 		val4 := n2.next
 		if !reflect.DeepEqual(val4, want4) {
 			t.Errorf("Got: %v, Want: %v", val4, want4)
+		}
+		size := list.size
+		if size != 3 {
+			t.Errorf("Size: %v, Want: %v", size, 3)
 		}
 	})
 	t.Run("Test GetNode()", func(t *testing.T) {
@@ -122,6 +131,10 @@ func TestDoubly(t *testing.T) {
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
+		size := list.size
+		if size != 2 {
+			t.Errorf("Size: %v, Want: %v", size, 2)
+		}
 
 		want2 := int(2)
 		got2, ok2 := list.DeleteFirst()
@@ -131,6 +144,10 @@ func TestDoubly(t *testing.T) {
 		if got2 != want2 {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
+		size2 := list.size
+		if size2 != 1 {
+			t.Errorf("Size: %v, Want: %v", size2, 1)
+		}
 
 		want3 := int(1)
 		got3, ok3 := list.DeleteFirst()
@@ -139,6 +156,10 @@ func TestDoubly(t *testing.T) {
 		}
 		if got3 != want3 {
 			t.Errorf("Got: %v, Want: %v", got3, want3)
+		}
+		size3 := list.size
+		if size3 != 0 {
+			t.Errorf("Size: %v, Want: %v", size, 0)
 		}
 
 		got4, ok4 := list.DeleteFirst()
@@ -164,6 +185,10 @@ func TestDoubly(t *testing.T) {
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)
 		}
+		size := list.size
+		if size != 2 {
+			t.Errorf("Size: %v, Want: %v", size, 2)
+		}
 
 		want2 := int(2)
 		got2, ok2 := list.DeleteLast()
@@ -173,6 +198,10 @@ func TestDoubly(t *testing.T) {
 		if got2 != want2 {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
+		size2 := list.size
+		if size2 != 1 {
+			t.Errorf("Size: %v, Want: %v", size2, 1)
+		}
 
 		want3 := int(1)
 		got3, ok3 := list.DeleteLast()
@@ -181,6 +210,10 @@ func TestDoubly(t *testing.T) {
 		}
 		if got3 != want3 {
 			t.Errorf("Got: %v, Want: %v", got3, want3)
+		}
+		size3 := list.size
+		if size3 != 0 {
+			t.Errorf("Size: %v, Want: %v", size3, 0)
 		}
 
 		got4, ok4 := list.DeleteLast()
