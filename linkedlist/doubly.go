@@ -163,6 +163,24 @@ func (list *DoublyLinkedList[T]) DeleteByPosition(pos int) (T, bool) {
 
 }
 
+func (list *DoublyLinkedList[T]) DeleteByNode(node *DoublyNode[T]) T {
+	if node == list.head {
+		val, _ := list.DeleteFirst()
+		return val
+	}
+	if node == list.tail {
+		val, _ := list.DeleteLast()
+		return val
+	}
+	node.prev.next = node.next
+	node.next.prev = node.prev
+	node.next = nil
+	node.prev = nil
+
+	list.size--
+	return node.val
+}
+
 func (list *DoublyLinkedList[T]) Display() {
 	for current := list.head; current != nil; current = current.next {
 		fmt.Println(current.val)

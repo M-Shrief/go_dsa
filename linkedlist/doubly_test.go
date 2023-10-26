@@ -224,7 +224,7 @@ func TestDoubly(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got3, 0)
 		}
 	})
-	t.Run("Test DeleteNode()", func(t *testing.T) {
+	t.Run("Test DeleteByPosition()", func(t *testing.T) {
 		list := NewDoublyLinkedList[int]()
 		list.AddLast(1)
 		list.AddLast(2)
@@ -253,4 +253,52 @@ func TestDoubly(t *testing.T) {
 			t.Errorf("got: %v, want: %v", got3, want3)
 		}
 	})
+
+	t.Run("Test DeleteByNode()", func(t *testing.T) {
+		list := NewDoublyLinkedList[int]()
+		list.AddLast(1)
+		list.AddLast(2)
+		list.AddLast(3)
+		list.AddLast(4)
+
+		want := int(1)
+		got := list.DeleteByNode(list.head)
+		if got != want {
+			t.Errorf("got: %v, want: %v", got, want)
+		}
+		if list.size != 3 {
+			t.Errorf("Size: %v, want: %v", list.size, 3)
+		}
+
+		want2 := int(3)
+		got2 := list.DeleteByNode(list.head.next)
+		if got2 != want2 {
+			t.Errorf("got: %v, want: %v", got2, want2)
+		}
+
+		if list.size != 2 {
+			t.Errorf("Size: %v, want: %v", list.size, 1)
+		}
+
+		want3 := int(4)
+		got3 := list.DeleteByNode(list.tail)
+		if got3 != want3 {
+			t.Errorf("got: %v, want: %v", got3, want3)
+		}
+
+		if list.size != 1 {
+			t.Errorf("Size: %v, want: %v", list.size, 1)
+		}
+
+		want4 := int(2)
+		got4 := list.DeleteByNode(list.head)
+		if got4 != want4 {
+			t.Errorf("got: %v, want: %v", got4, want4)
+		}
+
+		if list.size != 0 {
+			t.Errorf("Size: %v, want: %v", list.size, 0)
+		}
+	})
+
 }
