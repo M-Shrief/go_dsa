@@ -137,7 +137,7 @@ func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
 	return node.val, true
 }
 
-func (list *DoublyLinkedList[T]) DeleteNode(pos int) (T, bool) {
+func (list *DoublyLinkedList[T]) DeleteByPosition(pos int) (T, bool) {
 	if pos < 0 || pos >= list.size {
 		var r T
 		return r, false

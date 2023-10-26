@@ -231,7 +231,7 @@ func TestDoubly(t *testing.T) {
 		list.AddLast(3)
 
 		want := int(2)
-		got, ok := list.DeleteNode(1)
+		got, ok := list.DeleteByPosition(1)
 		if !ok {
 			t.Error("unexpected not-ok")
 		}
