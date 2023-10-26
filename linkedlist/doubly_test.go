@@ -240,14 +240,14 @@ func TestDoubly(t *testing.T) {
 		}
 
 		want2 := int(3)
-		got2 := list.Head.next.val
+		got2 := list.head.next.val
 
 		if got2 != want2 {
 			t.Errorf("got: %v, want: %v", got2, want2)
 		}
 
 		want3 := int(1)
-		got3 := list.Tail.prev.val
+		got3 := list.tail.prev.val
 
 		if got3 != want3 {
 			t.Errorf("got: %v, want: %v", got3, want3)
