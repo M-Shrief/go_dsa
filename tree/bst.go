@@ -177,37 +177,6 @@ func (bst *BST[T]) removeNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 				return deletedNode, true
 			}
 		}
-
-		// ifLeftNodeIsNil := node.left == nil
-		// ifRightNodeIsNil := node.right == nil
-		// if ifLeftNodeIsNil && ifRightNodeIsNil {
-		// 	n := bst.GetParent(node.val)
-		// 	if n.val <= node.val {
-		// 		deletedNode := node.left
-		// 		n.left = nil
-		// 		return deletedNode
-		// 	} else {
-		// 		deletedNode := node.right
-		// 		n.right = nil
-		// 		return deletedNode
-		// 	}
-		// 	// node = nil
-		// 	// return node
-		// } else if ifLeftNodeIsNil {
-		// 	node = node.right
-		// 	return node
-		// } else if ifRightNodeIsNil {
-		// 	node = node.left
-		// 	return node
-		// } else {
-		// 	// // if it have 2 childs:
-		// 	// // set node.val to the smallest rightChild in the subtree.
-		// 	// // then go back and delete that leaf key.
-		// 	minimumValueInRightSubTree := bst.minimumNode(node.right)
-		// 	node.val = minimumValueInRightSubTree
-		// 	node.right = bst.removeNode(node.right, minimumValueInRightSubTree)
-		// 	return node
-		// }
 	}
 }
 
