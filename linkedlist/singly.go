@@ -24,6 +24,7 @@ func (n *SinglyNode[T]) GetNext() *SinglyNode[T] {
 type Singly[T any] struct {
 	size int
 	head *SinglyNode[T]
+	tail *SinglyNode[T]
 }
 
 func NewSingly[T any]() *Singly[T] {
@@ -32,6 +33,13 @@ func NewSingly[T any]() *Singly[T] {
 
 func (list *Singly[T]) GetHead() *SinglyNode[T] {
 	return list.head
+}
+
+func (list *Singly[T]) GetTail() *SinglyNode[T] {
+	if list.size == 0 {
+		return nil
+	}
+	return list.tail
 }
 
 func (list *Singly[T]) GetSize() int {
@@ -46,6 +54,9 @@ func (list *Singly[T]) GetNode(pos int) any {
 	if pos == 0 {
 		return list.head.val
 	}
+	if pos == list.size-1 {
+		return list.tail.val
+	}
 
 	current := list.head
 
@@ -58,25 +69,27 @@ func (list *Singly[T]) GetNode(pos int) any {
 
 func (list *Singly[T]) AddFirst(val T) {
 	n := NewSinglyNode(val)
-	n.next = list.head
-	list.head = n
+	if list.size == 0 {
+		list.head = n
+		list.tail = n
+	} else {
+		n.next = list.head
+		list.head = n
+	}
 	list.size++
 }
 
 func (list *Singly[T]) AddLast(val T) {
 	n := NewSinglyNode(val)
 
-	if list.head == nil {
-		list.head = n
-		list.size++
+	if list.size == 0 {
+		list.AddFirst(val)
 		return
+	} else {
+		list.tail.next = n
+		list.tail = n
 	}
 
-	current := list.head
-	for current.next != nil {
-		current = current.next
-	}
-	current.next = n
 	list.size++
 }
 
@@ -85,11 +98,15 @@ func (list *Singly[T]) DeleteFirst() (T, bool) {
 		var r T
 		return r, false
 	}
-
 	current := list.head
-	list.head = current.next
-	list.size--
+	if list.size == 1 {
+		list.head = nil
+		list.tail = nil
+	} else {
+		list.head = current.next
+	}
 
+	list.size--
 	return current.val, true
 }
 
