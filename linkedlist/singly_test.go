@@ -14,7 +14,7 @@ func TestSingly(t *testing.T) {
 		list.AddFirst(3)
 
 		want := int(2)
-		got := list.GetNode(1)
+		got := list.GetNode(1).GetVal()
 
 		if got != want {
 			t.Errorf("Got: %v, Want: %v", got, want)

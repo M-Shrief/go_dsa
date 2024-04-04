@@ -1,40 +1,57 @@
+/*
+# LinkedList
+
+Package for Ready to use LinkedLists, it have 2 implementations:
+  - Singly (each node have access to the next.)
+  - Doubly (each node have access to the next and the previous.)
+*/
 package linkedlist
 
 import (
 	"fmt"
 )
 
+// Node for Singly LinkedList
 type SinglyNode[T any] struct {
-	val  T
+	// Node Value
+	val T
+	// Next node in LinkedList
 	next *SinglyNode[T]
 }
 
+// Create New SinglyNode, and assign its value
 func NewSinglyNode[T any](val T) *SinglyNode[T] {
 	return &SinglyNode[T]{val, nil}
 }
 
+// Get Node's value
 func (n *SinglyNode[T]) GetVal() T {
 	return n.val
 }
 
+// Get the next node
 func (n *SinglyNode[T]) GetNext() *SinglyNode[T] {
 	return n.next
 }
 
+// Singly Linkedist
 type Singly[T any] struct {
 	size int
 	head *SinglyNode[T]
 	tail *SinglyNode[T]
 }
 
+// Create A new Singly LinkedList
 func NewSingly[T any]() *Singly[T] {
 	return &Singly[T]{}
 }
 
+// Get LinkedList's Head
 func (list *Singly[T]) GetHead() *SinglyNode[T] {
 	return list.head
 }
 
+// Get LinkedList's Tail
 func (list *Singly[T]) GetTail() *SinglyNode[T] {
 	if list.size == 0 {
 		return nil
@@ -42,20 +59,24 @@ func (list *Singly[T]) GetTail() *SinglyNode[T] {
 	return list.tail
 }
 
+// Get LinkedList's Size
 func (list *Singly[T]) GetSize() int {
 	return list.size
 }
 
-func (list *Singly[T]) GetNode(pos int) any {
+/*
+Get specific node by position (pos)
+*/
+func (list *Singly[T]) GetNode(pos int) *SinglyNode[T] {
 
 	if pos < 0 || pos >= list.size {
 		return nil
 	}
 	if pos == 0 {
-		return list.head.val
+		return list.head
 	}
 	if pos == list.size-1 {
-		return list.tail.val
+		return list.tail
 	}
 
 	current := list.head
@@ -64,7 +85,7 @@ func (list *Singly[T]) GetNode(pos int) any {
 		current = current.next
 	}
 
-	return current.val
+	return current
 }
 
 func (list *Singly[T]) AddFirst(val T) {
