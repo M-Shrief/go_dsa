@@ -11,7 +11,7 @@ type item[T any] struct {
 }
 
 type LRU[T any] struct {
-	dl       *linkedlist.DoublyLinkedList[*item[T]]
+	dl       *linkedlist.Doubly[*item[T]]
 	size     int
 	capacity int
 	storage  map[string]*linkedlist.DoublyNode[*item[T]]
@@ -19,7 +19,7 @@ type LRU[T any] struct {
 
 func NewLRU[T any](capacity int) *LRU[T] {
 	return &LRU[T]{
-		dl:       linkedlist.NewDoublyLinkedList[*item[T]](),
+		dl:       linkedlist.NewDoubly[*item[T]](),
 		storage:  make(map[string]*linkedlist.DoublyNode[*item[T]], capacity),
 		size:     0,
 		capacity: capacity,

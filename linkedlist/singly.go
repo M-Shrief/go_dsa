@@ -88,6 +88,7 @@ func (list *Singly[T]) GetNode(pos int) *SinglyNode[T] {
 	return current
 }
 
+// Add value as a NewSinglyNode to Singly LinkedList's First position.
 func (list *Singly[T]) AddFirst(val T) {
 	n := NewSinglyNode(val)
 	if list.size == 0 {
@@ -100,6 +101,7 @@ func (list *Singly[T]) AddFirst(val T) {
 	list.size++
 }
 
+// Add value as a NewSinglyNode to Singly LinkedList's Last position.
 func (list *Singly[T]) AddLast(val T) {
 	n := NewSinglyNode(val)
 
@@ -114,6 +116,11 @@ func (list *Singly[T]) AddLast(val T) {
 	list.size++
 }
 
+/*
+Delete First node from LinkedList.
+
+Returns deletedNode's value and boolean to indicate if delete is successful or not.
+*/
 func (list *Singly[T]) DeleteFirst() (T, bool) {
 	if list.head == nil {
 		var r T
@@ -131,10 +138,20 @@ func (list *Singly[T]) DeleteFirst() (T, bool) {
 	return current.val, true
 }
 
+/*
+Delete Last node from LinkedList.
+
+Returns deletedNode's value and boolean to indicate if delete is successful or not.
+*/
 func (list *Singly[T]) DeleteLast() (T, bool) {
 	return list.DeleteNode(list.size - 1)
 }
 
+/*
+Delete node by position from LinkedList.
+
+Returns deletedNode's value and boolean to indicate if delete is successful or not.
+*/
 func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 
 	if pos < 0 || pos >= list.size {
@@ -158,6 +175,7 @@ func (list *Singly[T]) DeleteNode(pos int) (T, bool) {
 	return removed, true
 }
 
+// Reverse LinkedList's Order
 func (list *Singly[T]) Reverse() {
 	var prev, next *SinglyNode[T]
 	current := list.head
@@ -173,6 +191,7 @@ func (list *Singly[T]) Reverse() {
 	list.head = prev
 }
 
+// Print LinkedList nodes in order.
 func (list *Singly[T]) Display() {
 	for current := list.head; current != nil; current = current.next {
 		fmt.Println(current.val)

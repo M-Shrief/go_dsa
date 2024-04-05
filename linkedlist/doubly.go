@@ -2,54 +2,70 @@ package linkedlist
 
 import "fmt"
 
+// Node for Doubly LinkedList
 type DoublyNode[T any] struct {
-	val  T
+	// Node Value
+	val T
+	// Next node in LinkedList
 	next *DoublyNode[T]
+	// Previous node in LinkedList
 	prev *DoublyNode[T]
 }
 
+// Create New DoublyNode, and assign its value
 func NewDoublyNode[T any](val T) *DoublyNode[T] {
 	return &DoublyNode[T]{val, nil, nil}
 }
 
+// Get Node's value
 func (n *DoublyNode[T]) GetVal() T {
 	return n.val
 }
 
+// Get the next node
 func (n *DoublyNode[T]) GetNext() *DoublyNode[T] {
 	return n.next
 }
 
+// Get the previous node
 func (n *DoublyNode[T]) GetPrev() *DoublyNode[T] {
 	return n.prev
 }
 
-type DoublyLinkedList[T any] struct {
+// Doubly Linkedist
+type Doubly[T any] struct {
 	size int
 	head *DoublyNode[T]
 	tail *DoublyNode[T]
 }
 
-func NewDoublyLinkedList[T any]() *DoublyLinkedList[T] {
-	return &DoublyLinkedList[T]{}
+// Create A new Doubly LinkedList
+func NewDoubly[T any]() *Doubly[T] {
+	return &Doubly[T]{}
 }
 
-func (list *DoublyLinkedList[T]) GetSize() int {
+// Get LinkedList's Size
+func (list *Doubly[T]) GetSize() int {
 	return list.size
 }
 
-func (list *DoublyLinkedList[T]) GetHead() *DoublyNode[T] {
+// Get LinkedList's Head
+func (list *Doubly[T]) GetHead() *DoublyNode[T] {
 	return list.head
 }
 
-func (list *DoublyLinkedList[T]) GetTail() *DoublyNode[T] {
+// Get LinkedList's Tail
+func (list *Doubly[T]) GetTail() *DoublyNode[T] {
 	if list.tail == nil {
 		return list.head
 	}
 	return list.tail
 }
 
-func (list *DoublyLinkedList[T]) GetNode(pos int) *DoublyNode[T] {
+/*
+Get specific node by position (pos)
+*/
+func (list *Doubly[T]) GetNode(pos int) *DoublyNode[T] {
 	if pos < 0 || pos >= list.size {
 		return nil
 	}
@@ -69,7 +85,8 @@ func (list *DoublyLinkedList[T]) GetNode(pos int) *DoublyNode[T] {
 	return current
 }
 
-func (list *DoublyLinkedList[T]) AddFirst(val T) {
+// Add value as a NewDoublyNode to Doubly LinkedList's First position.
+func (list *Doubly[T]) AddFirst(val T) {
 	n := NewDoublyNode(val)
 	if list.head == nil {
 		list.head = n
@@ -85,7 +102,8 @@ func (list *DoublyLinkedList[T]) AddFirst(val T) {
 	list.size++
 }
 
-func (list *DoublyLinkedList[T]) AddLast(val T) {
+// Add value as a NewDoublyNode to Doubly LinkedList's Last position.
+func (list *Doubly[T]) AddLast(val T) {
 	if list.size == 0 {
 		list.AddFirst(val)
 		return
@@ -97,7 +115,12 @@ func (list *DoublyLinkedList[T]) AddLast(val T) {
 	list.size++
 }
 
-func (list *DoublyLinkedList[T]) DeleteFirst() (T, bool) {
+/*
+Delete First node from LinkedList.
+
+Returns deletedNode's value and boolean to indicate if delete is successful or not.
+*/
+func (list *Doubly[T]) DeleteFirst() (T, bool) {
 	if list.size == 0 {
 		var r T
 		return r, false
@@ -119,7 +142,12 @@ func (list *DoublyLinkedList[T]) DeleteFirst() (T, bool) {
 	return node.val, true
 }
 
-func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
+/*
+Delete Last node from LinkedList.
+
+Returns deletedNode's value and boolean to indicate if delete is successful or not.
+*/
+func (list *Doubly[T]) DeleteLast() (T, bool) {
 	if list.size == 0 {
 		var r T
 		return r, false
@@ -137,7 +165,12 @@ func (list *DoublyLinkedList[T]) DeleteLast() (T, bool) {
 	return node.val, true
 }
 
-func (list *DoublyLinkedList[T]) DeleteByPosition(pos int) (T, bool) {
+/*
+Delete node by position from LinkedList.
+
+Returns deletedNode's value and boolean to indicate if delete is successful or not.
+*/
+func (list *Doubly[T]) DeleteByPosition(pos int) (T, bool) {
 	if pos < 0 || pos >= list.size {
 		var r T
 		return r, false
@@ -163,7 +196,12 @@ func (list *DoublyLinkedList[T]) DeleteByPosition(pos int) (T, bool) {
 
 }
 
-func (list *DoublyLinkedList[T]) DeleteByNode(node *DoublyNode[T]) T {
+/*
+Delete by prividing the target DoublyNode from LinkedList
+
+Returns deletedNode's value.
+*/
+func (list *Doubly[T]) DeleteByNode(node *DoublyNode[T]) T {
 	if node == list.head {
 		val, _ := list.DeleteFirst()
 		return val
@@ -181,7 +219,8 @@ func (list *DoublyLinkedList[T]) DeleteByNode(node *DoublyNode[T]) T {
 	return node.val
 }
 
-func (list *DoublyLinkedList[T]) Display() {
+// Print LinkedList nodes in order.
+func (list *Doubly[T]) Display() {
 	for current := list.head; current != nil; current = current.next {
 		fmt.Println(current.val)
 	}
