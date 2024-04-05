@@ -5,18 +5,25 @@ import (
 	"github.com/M-Shrief/go-dsa-practice/linkedlist"
 )
 
+// LRU item
 type item[T any] struct {
 	key   string
 	value T
 }
 
+// LRU cache
 type LRU[T any] struct {
-	dl       *linkedlist.Doubly[*item[T]]
-	size     int
+	// Doubly Linkedlist
+	dl *linkedlist.Doubly[*item[T]]
+	// LRU's size
+	size int
+	// LRU's capacity
 	capacity int
-	storage  map[string]*linkedlist.DoublyNode[*item[T]]
+	// LRU's fast access storage (hashmap)
+	storage map[string]*linkedlist.DoublyNode[*item[T]]
 }
 
+// Create a new LRU with a certain capacity.
 func NewLRU[T any](capacity int) *LRU[T] {
 	return &LRU[T]{
 		dl:       linkedlist.NewDoubly[*item[T]](),
@@ -26,10 +33,9 @@ func NewLRU[T any](capacity int) *LRU[T] {
 	}
 }
 
-/* Put
-
- */
-
+/*
+Add a new item to LRU.
+*/
 func (lru *LRU[T]) Put(key string, value T) {
 	newNode := &item[T]{key, value}
 	if lru.size == lru.capacity {
@@ -44,6 +50,7 @@ func (lru *LRU[T]) Put(key string, value T) {
 	lru.size++
 }
 
+// Evict last item from Doubly Linkedlist and from LRU's storage.
 func (lru *LRU[T]) evict() bool {
 	if lru.size == 0 {
 		return false
@@ -54,6 +61,8 @@ func (lru *LRU[T]) evict() bool {
 	return true
 }
 
+// Get LRU's item by key
+// Returns item's value, and boolean to report if it exists or not.
 func (lru *LRU[T]) Get(key string) (T, bool) {
 	if lru.size == 0 {
 		var r T
