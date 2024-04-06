@@ -154,9 +154,9 @@ func (bst *BST[T]) removeNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 			// // if it have 2 childs:
 			// // set node.val to the maximum child in the left subtree.
 			// // then go back and delete that leaf key.
-			maximumValueInRightSubTree, _ := bst.maximumNode(node.left)
-			node.left, _ = bst.removeNode(node.left, maximumValueInRightSubTree)
-			node.val = maximumValueInRightSubTree
+			maximumValueInLeftSubTree, _ := bst.maximumNode(node.left)
+			node.left, _ = bst.removeNode(node.left, maximumValueInLeftSubTree)
+			node.val = maximumValueInLeftSubTree
 			return node, true
 		} else if ifLeftNodeExists {
 			*node = *node.left
