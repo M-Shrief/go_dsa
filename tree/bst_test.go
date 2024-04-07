@@ -126,6 +126,7 @@ func TestBST(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got4, want4)
 		}
 	})
+
 	t.Run("Test minimunVal()", func(t *testing.T) {
 		tree := NewBST[int]()
 		tree.Insert(5)
@@ -305,5 +306,34 @@ func TestBST(t *testing.T) {
 			t.Error("Root is not Nil")
 		}
 
+	})
+
+	t.Run("Test Breadth First Search, BFT()", func(t *testing.T) {
+		tree := NewBST[int]()
+
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		// Tree looks like [5,2,7,1,3,6,8]
+		/*
+					5
+				2		7
+			  1	  3	  6    8
+		*/
+		got := tree.BFT()
+		want := make([]int, tree.GetSize())
+		want = append(want, 5, 2, 7, 1, 3, 6, 8)
+
+		if len(got) != len(want) {
+			t.Errorf("Got: %v. Want: %v", len(got), len(want))
+		}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("Got: %v, Want: %v", got, want)
+		}
 	})
 }

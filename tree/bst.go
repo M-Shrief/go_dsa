@@ -1,6 +1,9 @@
 package tree
 
-import "golang.org/x/exp/constraints"
+import (
+	"github.com/M-Shrief/go-dsa-practice/queue"
+	"golang.org/x/exp/constraints"
+)
 
 type BSNode[T constraints.Ordered] struct {
 	val   T
@@ -216,4 +219,32 @@ func (bst *BST[T]) maximumNode(node *BSNode[T]) (T, bool) {
 	} else {
 		return bst.maximumNode(node.right)
 	}
+}
+
+func (bst *BST[T]) BFT() []T {
+
+	if bst.GetSize() == 0 {
+		return nil
+	}
+
+	list := make([]T, bst.GetSize())
+
+	queue := queue.NewQueue[*BSNode[T]]()
+	queue.Enqueue(bst.GetRoot())
+
+	for queue.GetSize() > 0 {
+		current, _ := queue.Dequeue()
+		list = append(list, current.val)
+
+		leftChild := current.GetLeft()
+		if leftChild != nil {
+			queue.Enqueue(leftChild)
+		}
+
+		rightChild := current.GetRight()
+		if rightChild != nil {
+			queue.Enqueue(rightChild)
+		}
+	}
+	return list
 }
