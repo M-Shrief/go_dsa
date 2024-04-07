@@ -308,7 +308,7 @@ func TestBST(t *testing.T) {
 
 	})
 
-	t.Run("Test Breadth First Search, BFT()", func(t *testing.T) {
+	t.Run("Test Breadth First Traversal, BFT()", func(t *testing.T) {
 		tree := NewBST[int]()
 
 		tree.Insert(5)
@@ -334,6 +334,48 @@ func TestBST(t *testing.T) {
 		}
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("Got: %v, Want: %v", got, want)
+		}
+	})
+
+	t.Run("Test Depth First Traversal, DFT()", func(t *testing.T) {
+		tree := NewBST[int]()
+
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		/*
+			Tree Looks like:
+						5
+					2		7
+				  1	  3	  6    8
+		*/
+		got1 := tree.DFT(PreOrder)
+		want1 := make([]int, tree.GetSize())
+		want1 = append(want1, 5, 2, 1, 3, 7, 6, 8)
+
+		if !reflect.DeepEqual(got1, want1) {
+			t.Errorf("Got: %v, Want: %v", got1, want1)
+		}
+
+		got2 := tree.DFT(InOrder)
+		want2 := make([]int, tree.GetSize())
+		want2 = append(want2, 1, 2, 3, 5, 6, 7, 8)
+
+		if !reflect.DeepEqual(got2, want2) {
+			t.Errorf("Got: %v, Want: %v", got2, want2)
+		}
+
+		got3 := tree.DFT(PostOrder)
+		want3 := make([]int, tree.GetSize())
+		want3 = append(want3, 1, 3, 2, 6, 8, 7, 5)
+
+		if !reflect.DeepEqual(got3, want3) {
+			t.Errorf("Got: %v, Want: %v", got3, want3)
 		}
 	})
 }

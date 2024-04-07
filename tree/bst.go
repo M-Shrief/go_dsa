@@ -248,3 +248,67 @@ func (bst *BST[T]) BFT() []T {
 	}
 	return list
 }
+
+type DFTMethod string
+
+const (
+	PreOrder  DFTMethod = "preOrder"
+	InOrder   DFTMethod = "inOrder"
+	PostOrder DFTMethod = "postOrder"
+)
+
+func (bst *BST[T]) DFT(method DFTMethod) []T {
+
+	if bst.GetSize() == 0 {
+		return nil
+	}
+
+	list := make([]T, bst.GetSize())
+
+	switch method {
+	case PreOrder:
+		return preOrder(&list, bst.GetRoot())
+	case InOrder:
+		return inOrder(&list, bst.GetRoot())
+	case PostOrder:
+		return postOrder(&list, bst.GetRoot())
+	default:
+		return inOrder(&list, bst.GetRoot())
+	}
+}
+
+func preOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+	if node == nil {
+		return nil
+	}
+
+	*list = append(*list, node.GetVal())
+	preOrder[T](list, node.GetLeft())
+	preOrder[T](list, node.GetRight())
+
+	return *list
+}
+
+func inOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+	if node == nil {
+		return nil
+	}
+
+	inOrder[T](list, node.GetLeft())
+	*list = append(*list, node.GetVal())
+	inOrder[T](list, node.GetRight())
+
+	return *list
+}
+
+func postOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+	if node == nil {
+		return nil
+	}
+
+	postOrder[T](list, node.GetLeft())
+	postOrder[T](list, node.GetRight())
+	*list = append(*list, node.GetVal())
+
+	return *list
+}
