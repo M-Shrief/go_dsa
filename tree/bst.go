@@ -257,6 +257,15 @@ const (
 	DFTPostOrder DFTMethod = "postOrder"
 )
 
+/*
+Depth First Search
+
+takes DFTMethod as a parameter, equals a string from ("preOrder", "inOrder", "postOrder")
+
+defaut traverse method: "inOrder"
+
+you can import (DFTPreOrder, DFTInOrder, DFTPostOrder) as constant string.
+*/
 func (bst *BST[T]) DFT(method DFTMethod) []T {
 
 	if bst.GetSize() == 0 {
