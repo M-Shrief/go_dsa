@@ -354,7 +354,7 @@ func TestBST(t *testing.T) {
 					2		7
 				  1	  3	  6    8
 		*/
-		got1 := tree.DFT(PreOrder)
+		got1 := tree.DFT(DFTPreOrder)
 		want1 := make([]int, tree.GetSize())
 		want1 = append(want1, 5, 2, 1, 3, 7, 6, 8)
 
@@ -362,7 +362,7 @@ func TestBST(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got1, want1)
 		}
 
-		got2 := tree.DFT(InOrder)
+		got2 := tree.DFT(DFTInOrder)
 		want2 := make([]int, tree.GetSize())
 		want2 = append(want2, 1, 2, 3, 5, 6, 7, 8)
 
@@ -370,7 +370,7 @@ func TestBST(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
 
-		got3 := tree.DFT(PostOrder)
+		got3 := tree.DFT(DFTPostOrder)
 		want3 := make([]int, tree.GetSize())
 		want3 = append(want3, 1, 3, 2, 6, 8, 7, 5)
 

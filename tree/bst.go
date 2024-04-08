@@ -252,9 +252,9 @@ func (bst *BST[T]) BFT() []T {
 type DFTMethod string
 
 const (
-	PreOrder  DFTMethod = "preOrder"
-	InOrder   DFTMethod = "inOrder"
-	PostOrder DFTMethod = "postOrder"
+	DFTPreOrder  DFTMethod = "preOrder"
+	DFTInOrder   DFTMethod = "inOrder"
+	DFTPostOrder DFTMethod = "postOrder"
 )
 
 func (bst *BST[T]) DFT(method DFTMethod) []T {
@@ -266,11 +266,11 @@ func (bst *BST[T]) DFT(method DFTMethod) []T {
 	list := make([]T, bst.GetSize())
 
 	switch method {
-	case PreOrder:
+	case DFTPreOrder:
 		return preOrder(&list, bst.GetRoot())
-	case InOrder:
+	case DFTInOrder:
 		return inOrder(&list, bst.GetRoot())
-	case PostOrder:
+	case DFTPostOrder:
 		return postOrder(&list, bst.GetRoot())
 	default:
 		return inOrder(&list, bst.GetRoot())
