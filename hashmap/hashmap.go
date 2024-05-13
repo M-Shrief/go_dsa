@@ -11,6 +11,9 @@ type node[T any] struct {
 	next  *node[T]
 }
 
+// Basic Hashmap
+//
+// Uses Linear Probe Hashing on collision
 type HashMap[T any] struct {
 	capacity uint
 	size     uint
