@@ -1,10 +1,10 @@
 package sorting
 
-type Dirction string
+type Direction string
 
 const (
-	ASC  Dirction = "ASC"
-	DESC Dirction = "DESC"
+	ASC  Direction = "ASC"
+	DESC Direction = "DESC"
 )
 
 func swap[T any](arr []T, i, j int) {

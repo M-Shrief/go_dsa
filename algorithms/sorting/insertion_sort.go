@@ -2,7 +2,7 @@ package sorting
 
 import "golang.org/x/exp/constraints"
 
-func InsertionSort[T constraints.Ordered](arr []T, dir Dirction) []T {
+func InsertionSort[T constraints.Ordered](arr []T, dir Direction) []T {
 	for i := 1; i < len(arr); i++ {
 		key := arr[i]
 		j := i - 1
