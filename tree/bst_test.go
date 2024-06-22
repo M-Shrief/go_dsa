@@ -249,6 +249,8 @@ func TestBST(t *testing.T) {
 			t.Errorf("Size: %v, want: %v", tree.size, 5)
 		}
 
+		tree.Remove(100)
+
 		tree.Remove(3)
 		_, ok4 := tree.Search(3)
 		if ok4 != false {
