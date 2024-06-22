@@ -40,10 +40,6 @@ func (lru *LRU[T]) Put(key string, value T) {
 	newNode := &item[T]{key, value}
 	if lru.size == lru.capacity {
 		lru.evict()
-		lru.dl.AddFirst(newNode)
-		lru.storage[key] = lru.dl.GetHead()
-		lru.size++
-		return
 	}
 	lru.dl.AddFirst(newNode)
 	lru.storage[key] = lru.dl.GetHead()
