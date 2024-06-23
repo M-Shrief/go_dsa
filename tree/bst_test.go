@@ -339,6 +339,54 @@ func TestBST(t *testing.T) {
 		}
 	})
 
+	t.Run("Test Breadth First Search, BFS()", func(t *testing.T) {
+		tree := NewBST[int]()
+
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		// Tree looks like [5,2,7,1,3,6,8]
+		/*
+					5
+				2		7
+			  1	  3	  6    8
+		*/
+		got, err := tree.BFS(2)
+		two := tree.GetRoot().left
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got.val != two.val {
+			t.Errorf("Got: %v, Want: %v", got.val, two.val)
+		}
+		if got.left != two.left {
+			t.Errorf("Got: %v, Want: %v", got.left, two.left)
+		}
+		if got.right != two.right {
+			t.Errorf("Got: %v, Want: %v", got.right, two.right)
+		}
+
+		got2, err := tree.BFS(8)
+		eight := tree.GetRoot().right.right
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got2.val != eight.val {
+			t.Errorf("Got: %v, Want: %v", got2.val, eight.val)
+		}
+		if got2.left != eight.left {
+			t.Errorf("Got: %v, Want: %v", got2.left, eight.left)
+		}
+		if got2.right != eight.right {
+			t.Errorf("Got: %v, Want: %v", got2.right, eight.right)
+		}
+	})
+
 	t.Run("Test Depth First Traversal, DFT()", func(t *testing.T) {
 		tree := NewBST[int]()
 

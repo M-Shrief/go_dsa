@@ -1,6 +1,8 @@
 package tree
 
 import (
+	"fmt"
+
 	"github.com/M-Shrief/go-dsa-practice/queue"
 	"golang.org/x/exp/constraints"
 )
@@ -247,6 +249,36 @@ func (bst *BST[T]) BFT() []T {
 		}
 	}
 	return list
+}
+
+func (bst *BST[T]) BFS(val T) (*BSNode[T], error) {
+	var node *BSNode[T]
+
+	if bst.GetSize() == 0 {
+		return node, fmt.Errorf("BST is empty")
+	}
+
+	queue := queue.NewQueue[*BSNode[T]]()
+	queue.Enqueue(bst.GetRoot())
+
+	for queue.GetSize() > 0 {
+		current, _ := queue.Dequeue()
+		if current.val == val {
+			node = current
+			break
+		}
+
+		leftChild := current.GetLeft()
+		if leftChild != nil {
+			queue.Enqueue(leftChild)
+		}
+
+		rightChild := current.GetRight()
+		if rightChild != nil {
+			queue.Enqueue(rightChild)
+		}
+	}
+	return node, nil
 }
 
 type DFTMethod string
