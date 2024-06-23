@@ -308,47 +308,47 @@ func (bst *BST[T]) DFT(method DFTMethod) []T {
 
 	switch method {
 	case DFTPreOrder:
-		return preOrder(&list, bst.GetRoot())
+		return preOrderTraversal(&list, bst.GetRoot())
 	case DFTInOrder:
-		return inOrder(&list, bst.GetRoot())
+		return inOrderTraversal(&list, bst.GetRoot())
 	case DFTPostOrder:
-		return postOrder(&list, bst.GetRoot())
+		return postOrderTraversal(&list, bst.GetRoot())
 	default:
-		return inOrder(&list, bst.GetRoot())
+		return inOrderTraversal(&list, bst.GetRoot())
 	}
 }
 
-func preOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+func preOrderTraversal[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
 	if node == nil {
 		return nil
 	}
 
 	*list = append(*list, node.GetVal())
-	preOrder[T](list, node.GetLeft())
-	preOrder[T](list, node.GetRight())
+	preOrderTraversal[T](list, node.GetLeft())
+	preOrderTraversal[T](list, node.GetRight())
 
 	return *list
 }
 
-func inOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+func inOrderTraversal[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
 	if node == nil {
 		return nil
 	}
 
-	inOrder[T](list, node.GetLeft())
+	inOrderTraversal[T](list, node.GetLeft())
 	*list = append(*list, node.GetVal())
-	inOrder[T](list, node.GetRight())
+	inOrderTraversal[T](list, node.GetRight())
 
 	return *list
 }
 
-func postOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+func postOrderTraversal[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
 	if node == nil {
 		return nil
 	}
 
-	postOrder[T](list, node.GetLeft())
-	postOrder[T](list, node.GetRight())
+	postOrderTraversal[T](list, node.GetLeft())
+	postOrderTraversal[T](list, node.GetRight())
 	*list = append(*list, node.GetVal())
 
 	return *list
