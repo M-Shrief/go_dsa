@@ -428,4 +428,112 @@ func TestBST(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got3, want3)
 		}
 	})
+
+	t.Run("Test Depth First Search, DFS()", func(t *testing.T) {
+		tree := NewBST[int]()
+
+		tree.Insert(5)
+		tree.Insert(2)
+		tree.Insert(1)
+		tree.Insert(3)
+		tree.Insert(7)
+		tree.Insert(6)
+		tree.Insert(8)
+
+		// Tree looks like [5,2,7,1,3,6,8]
+		/*
+					5
+				2		7
+			  1	  3	  6    8
+		*/
+		got, err := tree.DFS(2, DFTPreOrder)
+		two := tree.GetRoot().left
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got.val != two.val {
+			t.Errorf("Got: %v, Want: %v", got.val, two.val)
+		}
+		if got.left != two.left {
+			t.Errorf("Got: %v, Want: %v", got.left, two.left)
+		}
+		if got.right != two.right {
+			t.Errorf("Got: %v, Want: %v", got.right, two.right)
+		}
+
+		got2, err := tree.DFS(8, DFTPreOrder)
+		eight := tree.GetRoot().right.right
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got2.val != eight.val {
+			t.Errorf("Got: %v, Want: %v", got2.val, eight.val)
+		}
+		if got2.left != eight.left {
+			t.Errorf("Got: %v, Want: %v", got2.left, eight.left)
+		}
+		if got2.right != eight.right {
+			t.Errorf("Got: %v, Want: %v", got2.right, eight.right)
+		}
+
+		got3, err := tree.DFS(2, DFTInOrder)
+		two2 := tree.GetRoot().left
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got3.val != two2.val {
+			t.Errorf("Got: %v, Want: %v", got3.val, two2.val)
+		}
+		if got3.left != two2.left {
+			t.Errorf("Got: %v, Want: %v", got3.left, two2.left)
+		}
+		if got3.right != two2.right {
+			t.Errorf("Got: %v, Want: %v", got3.right, two2.right)
+		}
+
+		got4, err := tree.DFS(8, DFTInOrder)
+		eight3 := tree.GetRoot().right.right
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got4.val != eight3.val {
+			t.Errorf("Got: %v, Want: %v", got4.val, eight3.val)
+		}
+		if got4.left != eight3.left {
+			t.Errorf("Got: %v, Want: %v", got4.left, eight3.right.left)
+		}
+		if got4.right != eight3.right {
+			t.Errorf("Got: %v, Want: %v", got4.right, eight3.right)
+		}
+
+		got5, err := tree.DFS(2, DFTPostOrder)
+		two3 := tree.GetRoot().left
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got5.val != two3.val {
+			t.Errorf("Got: %v, Want: %v", got5.val, two3.val)
+		}
+		if got5.left != two3.left {
+			t.Errorf("Got: %v, Want: %v", got5.left, two3.left)
+		}
+		if got5.right != two3.right {
+			t.Errorf("Got: %v, Want: %v", got5.right, two3.right)
+		}
+
+		got6, err := tree.DFS(8, DFTPostOrder)
+		eight2 := tree.GetRoot().right.right
+		if err != nil {
+			t.Errorf("Error: %v", err)
+		}
+		if got6.val != eight2.val {
+			t.Errorf("Got: %v, Want: %v", got6.val, eight2.val)
+		}
+		if got6.left != eight2.left {
+			t.Errorf("Got: %v, Want: %v", got6.left, eight2.right.left)
+		}
+		if got6.right != eight2.right {
+			t.Errorf("Got: %v, Want: %v", got6.right, eight2.right)
+		}
+	})
 }

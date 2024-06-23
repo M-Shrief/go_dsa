@@ -290,7 +290,7 @@ const (
 )
 
 /*
-Depth First Search
+Depth First Traversal
 
 takes DFTMethod as a parameter, equals a string from ("preOrder", "inOrder", "postOrder")
 
@@ -352,4 +352,96 @@ func postOrder[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
 	*list = append(*list, node.GetVal())
 
 	return *list
+}
+
+/*
+Depth First Search
+
+takes DFTMethod as a parameter, equals a string from ("preOrder", "inOrder", "postOrder")
+
+defaut traverse method: "inOrder"
+
+you can import (DFTPreOrder, DFTInOrder, DFTPostOrder) as constant string.
+*/
+func (bst *BST[T]) DFS(data T, method DFTMethod) (*BSNode[T], error) {
+
+	if bst.GetSize() == 0 {
+		return nil, fmt.Errorf("tree is empty")
+	}
+
+	switch method {
+	case DFTPreOrder:
+		return preOrderSearch(data, bst.GetRoot())
+	case DFTInOrder:
+		return inOrderSearch(data, bst.GetRoot())
+	case DFTPostOrder:
+		return postOrderSearch(data, bst.GetRoot())
+	default:
+		return inOrderSearch(data, bst.GetRoot())
+	}
+}
+
+func preOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], error) {
+	if node == nil {
+		return nil, fmt.Errorf("nil node")
+	}
+	if data == node.val {
+		return node, nil
+	}
+
+	n1, err := preOrderSearch[T](data, node.GetLeft())
+	if err == nil {
+		return n1, nil
+	}
+
+	n2, err := preOrderSearch[T](data, node.GetRight())
+	if err == nil {
+		return n2, nil
+	}
+
+	return nil, fmt.Errorf("%v doesn't exist", data)
+}
+
+func inOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], error) {
+	if node == nil {
+		return nil, fmt.Errorf("nil node")
+	}
+
+	n1, err := inOrderSearch[T](data, node.GetLeft())
+	if err == nil {
+		return n1, nil
+	}
+
+	if data == node.val {
+		return node, nil
+	}
+
+	n2, err := inOrderSearch[T](data, node.GetRight())
+	if err == nil {
+		return n2, nil
+	}
+
+	return nil, fmt.Errorf("%v doesn't exist", data)
+}
+
+func postOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], error) {
+	if node == nil {
+		return nil, fmt.Errorf("nil node")
+	}
+
+	n1, err := postOrderSearch[T](data, node.GetLeft())
+	if err == nil {
+		return n1, nil
+	}
+
+	n2, err := postOrderSearch[T](data, node.GetRight())
+	if err == nil {
+		return n2, nil
+	}
+
+	if data == node.val {
+		return node, nil
+	}
+
+	return nil, fmt.Errorf("%v doesn't exist", data)
 }
