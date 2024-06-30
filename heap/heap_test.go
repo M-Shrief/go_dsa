@@ -6,7 +6,14 @@ import (
 
 func TestHeap(t *testing.T) {
 	t.Run("MinHeap: Testing Push()", func(t *testing.T) {
-		heap := NewMinHeap[int]()
+		isSmaller := func(a, b int) bool {
+			if Compare(a, b) == CR2 {
+				return true
+			} else {
+				return false
+			}
+		}
+		heap := &Heap[int]{[]int{}, isSmaller}
 		heap.Push(8)
 		heap.Push(6)
 		heap.Push(4)
@@ -29,7 +36,14 @@ func TestHeap(t *testing.T) {
 	})
 
 	t.Run("MinHeap: Testing Pop()", func(t *testing.T) {
-		heap := NewMinHeap[int]()
+		isSmaller := func(a, b int) bool {
+			if Compare(a, b) == CR2 {
+				return true
+			} else {
+				return false
+			}
+		}
+		heap := &Heap[int]{[]int{}, isSmaller}
 		heap.Push(8)
 		heap.Push(6)
 		heap.Push(4)
@@ -71,7 +85,14 @@ func TestHeap(t *testing.T) {
 	})
 
 	t.Run("MaxHeap: Testing Pop()", func(t *testing.T) {
-		heap := NewMaxHeap[int]()
+		isBigger := func(a, b int) bool {
+			if Compare(a, b) == CR1 {
+				return true
+			} else {
+				return false
+			}
+		}
+		heap := &Heap[int]{[]int{}, isBigger}
 		heap.Push(0)
 		heap.Push(1)
 		heap.Push(2)
@@ -94,7 +115,14 @@ func TestHeap(t *testing.T) {
 	})
 
 	t.Run("MaxHeap: Testing Pop()", func(t *testing.T) {
-		heap := NewMaxHeap[int]()
+		isBigger := func(a, b int) bool {
+			if Compare(a, b) == 1 {
+				return true
+			} else {
+				return false
+			}
+		}
+		heap := &Heap[int]{[]int{}, isBigger}
 		heap.Push(8)
 		heap.Push(6)
 		heap.Push(4)

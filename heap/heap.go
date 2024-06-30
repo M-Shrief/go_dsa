@@ -1,34 +1,36 @@
 package heap
 
-import "golang.org/x/exp/constraints"
+import (
+	"reflect"
 
-type Heap[T constraints.Ordered] struct {
+	"golang.org/x/exp/constraints"
+)
+
+type Heap[T any] struct {
 	list      []T
 	compareFn func(a, b T) bool
 }
 
-func NewMinHeap[T constraints.Ordered]() *Heap[T] {
-	isSmaller := func(a, b T) bool {
-		return a < b
-	}
+type CResult int
 
-	h := &Heap[T]{
-		compareFn: isSmaller,
-	}
+const (
+	CR1 CResult = 1
+	CR2 CResult = -1
+	CR3 CResult = 0
+)
 
-	return h
+func Compare[T constraints.Ordered](a, b T) CResult {
+	if a > b {
+		return 1
+	} else if a < b {
+		return -1
+	} else {
+		return 0
+	}
 }
 
-func NewMaxHeap[T constraints.Ordered]() *Heap[T] {
-	isBigger := func(a, b T) bool {
-		return a > b
-	}
-
-	h := &Heap[T]{
-		compareFn: isBigger,
-	}
-
-	return h
+func NewHeap[T any](compareFn func(a, b T) bool) *Heap[T] {
+	return &Heap[T]{compareFn: compareFn}
 }
 
 func (h *Heap[T]) Top() T {
@@ -38,6 +40,15 @@ func (h *Heap[T]) Top() T {
 func (h *Heap[T]) Push(val T) {
 	h.list = append(h.list, val)
 	h.up(len(h.list) - 1)
+}
+
+// Delete by value
+func (h *Heap[T]) Delete(val T) {
+	i := 0
+	for !reflect.DeepEqual(h.list[i], val) {
+		i++
+	}
+	h.list = append(h.list[:i], h.list[i+1:]...)
 }
 
 func (h *Heap[T]) Pop() {
