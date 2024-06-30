@@ -33,12 +33,26 @@ func TestLRU(t *testing.T) {
 			t.Errorf("got: %v, expected: %v", got4.GetVal().value, 4)
 		}
 		_, ok2 := lru.storage["one"]
-		if ok2 != false {
+		if ok2 {
 			t.Error("Not Okay")
 		}
 		got5 := got4.GetNext()
 		if got5.GetVal().value != 3 {
 			t.Errorf("got: %v, expected: %v", got5.GetVal().value, 3)
+		}
+
+		lru.Put("five", 5)
+		got6 := lru.dl.GetHead()
+		if got6.GetVal().value != 5 {
+			t.Errorf("got: %v, expected: %v", got4.GetVal().value, 4)
+		}
+		_, ok3 := lru.storage["two"]
+		if ok3 {
+			t.Error("Not Okay")
+		}
+		got7 := got6.GetNext()
+		if got7.GetVal().value != 4 {
+			t.Errorf("got: %v, expected: %v", got5.GetVal().value, 4)
 		}
 	})
 
@@ -64,7 +78,31 @@ func TestLRU(t *testing.T) {
 			t.Errorf("got: %v, expected: %v", got3.GetVal().value, 2)
 		}
 		_, ok2 := lru.Get("four")
-		if ok2 != false {
+		if ok2 {
+			t.Error("Not Okay")
+		}
+
+		lru.Put("four", 4)
+
+		got4 := lru.dl.GetHead()
+		if got4.GetVal().value != 4 {
+			t.Errorf("got: %v, expected: %v", got2.GetVal().value, 1)
+		}
+		got5 := lru.dl.GetTail()
+		if got5.GetVal().value != 3 {
+			t.Errorf("got: %v, expected: %v", got3.GetVal().value, 2)
+		}
+
+		got6, ok3 := lru.Get("four")
+		if !ok3 {
+			t.Error("Not Okay")
+		}
+		if got6 != 4 {
+			t.Errorf("got: %v, expected: %v", got6, 4)
+		}
+
+		_, ok4 := lru.Get("two")
+		if ok4 {
 			t.Error("Not Okay")
 		}
 	})
