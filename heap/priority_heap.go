@@ -1,17 +1,17 @@
 package heap
 
-type node[T any] struct {
+type priorityNode[T any] struct {
 	value T
 	// the smaller the more it's prioritized
 	priority uint64
 }
 
-func newNode[T any](value T, priority uint64) *node[T] {
-	return &node[T]{value, priority}
+func newNode[T any](value T, priority uint64) *priorityNode[T] {
+	return &priorityNode[T]{value, priority}
 }
 
 type PriorityHeap[T any] struct {
-	list []*node[T]
+	list []*priorityNode[T]
 }
 
 func (ph *PriorityHeap[T]) isPreceding(a, b uint64) bool {
