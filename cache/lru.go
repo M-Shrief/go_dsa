@@ -1,15 +1,10 @@
+package cache
+
 // Check this: https://www.geeksforgeeks.org/lru-cache-implementation/#lru-cache-implementation-using-queue-and-hashing
-package lru
 
 import (
 	"github.com/M-Shrief/go-dsa-practice/linkedlist"
 )
-
-// LRU item
-type item[T any] struct {
-	key   string
-	value T
-}
 
 // LRU cache
 type LRU[T any] struct {
