@@ -43,12 +43,23 @@ func (h *Heap[T]) Push(val T) {
 }
 
 // Delete by value
-func (h *Heap[T]) Delete(val T) {
+func (h *Heap[T]) Delete(val T) bool {
 	i := 0
-	for !reflect.DeepEqual(h.list[i], val) {
+	found := false
+	for i < len(h.list) {
+		if reflect.DeepEqual(h.list[i], val) {
+			found = true
+			break
+		}
 		i++
 	}
-	h.list = append(h.list[:i], h.list[i+1:]...)
+	if found {
+		h.swap(i, len(h.list)-1)
+		h.list = h.list[:len(h.list)-1]
+		h.down(i)
+		return true
+	}
+	return false
 }
 
 func (h *Heap[T]) Pop() {

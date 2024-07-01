@@ -82,6 +82,43 @@ func TestHeap(t *testing.T) {
 		if heap.Top() == 6 && heap.Top() != 8 {
 			t.Errorf("Got: %v, Want: %v", heap.Top(), 6)
 		}
+
+		t.Run("MinHeap: Testing Delete()", func(t *testing.T) {
+			isSmaller := func(a, b int) bool {
+				if Compare(a, b) == CR2 {
+					return true
+				} else {
+					return false
+				}
+			}
+			heap := &Heap[int]{[]int{}, isSmaller}
+			heap.Push(8)
+			heap.Push(6)
+			heap.Push(4)
+
+			ok := heap.Delete(4)
+			if !ok {
+				t.Errorf("Not Okay")
+			}
+			if heap.Top() != 6 {
+				t.Errorf("Got: %v, Want: %v", heap.Top(), 6)
+			}
+
+			ok = heap.Delete(100)
+			if ok {
+				t.Errorf("Not Okay")
+			}
+
+			ok = heap.Delete(12)
+			if ok {
+				t.Errorf("Not Okay")
+			}
+
+			ok = heap.Delete(-1)
+			if ok {
+				t.Errorf("Not Okay")
+			}
+		})
 	})
 
 	t.Run("MaxHeap: Testing Pop()", func(t *testing.T) {
@@ -152,4 +189,40 @@ func TestHeap(t *testing.T) {
 		}
 	})
 
+	t.Run("MaxHeap: Testing Delete()", func(t *testing.T) {
+		isBigger := func(a, b int) bool {
+			if Compare(a, b) == 1 {
+				return true
+			} else {
+				return false
+			}
+		}
+		heap := &Heap[int]{[]int{}, isBigger}
+		heap.Push(8)
+		heap.Push(6)
+		heap.Push(4)
+
+		ok := heap.Delete(8)
+		if !ok {
+			t.Errorf("Not Okay")
+		}
+		if heap.Top() != 6 {
+			t.Errorf("Got: %v, Want: %v", heap.Top(), 6)
+		}
+
+		ok = heap.Delete(100)
+		if ok {
+			t.Errorf("Not Okay")
+		}
+
+		ok = heap.Delete(12)
+		if ok {
+			t.Errorf("Not Okay")
+		}
+
+		ok = heap.Delete(-1)
+		if ok {
+			t.Errorf("Not Okay")
+		}
+	})
 }
