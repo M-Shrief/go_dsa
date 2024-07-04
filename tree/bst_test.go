@@ -3,11 +3,13 @@ package tree
 import (
 	"reflect"
 	"testing"
+
+	"github.com/M-Shrief/go-dsa-practice/utils"
 )
 
 func TestBST(t *testing.T) {
 	t.Run("Test Insert()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 		tree.Insert(5)
 		tree.Insert(2)
 		tree.Insert(1)
@@ -67,7 +69,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test Search()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 		tree.Insert(5)
 		tree.Insert(2)
 		tree.Insert(1)
@@ -128,7 +130,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test minimunVal()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 		tree.Insert(5)
 		tree.Insert(2)
 		tree.Insert(1)
@@ -149,7 +151,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test minimunVal()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 		tree.Insert(5)
 		tree.Insert(2)
 		tree.Insert(1)
@@ -168,7 +170,7 @@ func TestBST(t *testing.T) {
 		}
 	})
 	t.Run("Test GetParent()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 		tree.Insert(5)
 		tree.Insert(2)
 		tree.Insert(1)
@@ -205,7 +207,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test Remove()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 		tree.Insert(5)
 		tree.Insert(2)
 		tree.Insert(1)
@@ -311,7 +313,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test Breadth First Traversal, BFT()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 
 		tree.Insert(5)
 		tree.Insert(2)
@@ -340,7 +342,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test Breadth First Search, BFS()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 
 		tree.Insert(5)
 		tree.Insert(2)
@@ -388,7 +390,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test Depth First Traversal, DFT()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 
 		tree.Insert(5)
 		tree.Insert(2)
@@ -430,7 +432,7 @@ func TestBST(t *testing.T) {
 	})
 
 	t.Run("Test Depth First Search, DFS()", func(t *testing.T) {
-		tree := NewBST[int]()
+		tree := NewBST[int](utils.Compare)
 
 		tree.Insert(5)
 		tree.Insert(2)

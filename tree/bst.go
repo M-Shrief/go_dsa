@@ -4,16 +4,15 @@ import (
 	"fmt"
 
 	"github.com/M-Shrief/go-dsa-practice/queue"
-	"golang.org/x/exp/constraints"
 )
 
-type BSNode[T constraints.Ordered] struct {
+type BSNode[T any] struct {
 	val   T
 	left  *BSNode[T]
 	right *BSNode[T]
 }
 
-func NewBSNode[T constraints.Ordered](val T) *BSNode[T] {
+func NewBSNode[T any](val T) *BSNode[T] {
 	return &BSNode[T]{val, nil, nil}
 }
 
@@ -29,19 +28,26 @@ func (n *BSNode[T]) GetRight() *BSNode[T] {
 	return n.right
 }
 
-type BST[T constraints.Ordered] struct {
+type BST[T any] struct {
 	root *BSNode[T]
 	size int
+
+	// Use standard [github.com/M-Shrief/go-dsa-practice/utils] for any type.field.
+	// Usage:
+	// 	compareFn := utis.Compare(a.age, b.age)
+	// 	tree := NewBST[Person](compareFn)
+	compareFn func(a, b T) int
 }
 
 func (bst *BST[T]) GetRoot() *BSNode[T] {
 	return bst.root
 }
 
-func NewBST[T constraints.Ordered]() *BST[T] {
+func NewBST[T any](compareFn func(a, b T) int) *BST[T] {
 	return &BST[T]{
-		root: nil,
-		size: 0,
+		root:      nil,
+		size:      0,
+		compareFn: compareFn,
 	}
 }
 
@@ -60,7 +66,7 @@ func (bst *BST[T]) Insert(data T) {
 }
 
 func (bst *BST[T]) insertNode(current *BSNode[T], data T) {
-	if data <= current.val {
+	if bst.compareFn(data, current.val) == -1 || bst.compareFn(data, current.val) == 0 {
 		if current.left != nil {
 			bst.insertNode(current.left, data)
 		} else {
@@ -90,9 +96,9 @@ func (bst *BST[T]) Search(data T) (*BSNode[T], bool) {
 func (bst *BST[T]) searchNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 	if node == nil {
 		return nil, false
-	} else if node.val == data {
+	} else if bst.compareFn(data, node.val) == 0 {
 		return node, true
-	} else if data < node.val {
+	} else if bst.compareFn(data, node.val) == -1 {
 		return bst.searchNode(node.left, data)
 	} else {
 		return bst.searchNode(node.right, data)
@@ -108,16 +114,16 @@ func (bst *BST[T]) GetParent(data T) *BSNode[T] {
 }
 
 func (bst *BST[T]) getNodeParent(node *BSNode[T], data T) *BSNode[T] {
-	if data == node.val {
+	if bst.compareFn(data, node.val) == 0 {
 		return nil
-	} else if data < node.val {
-		if data == node.left.val {
+	} else if bst.compareFn(data, node.val) == -1 {
+		if bst.compareFn(data, node.left.val) == 0 {
 			return node
 		} else {
 			return bst.getNodeParent(node.left, data)
 		}
 	} else {
-		if data == node.right.val {
+		if bst.compareFn(data, node.right.val) == 0 {
 			return node
 		} else {
 			return bst.getNodeParent(node.right, data)
@@ -147,9 +153,9 @@ func (bst *BST[T]) Remove(data T) bool {
 func (bst *BST[T]) removeNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 	if node == nil {
 		return node, false
-	} else if data < node.val { // if less, go left
+	} else if bst.compareFn(data, node.val) == -1 { // if less, go left
 		return bst.removeNode(node.left, data)
-	} else if data > node.val { // if more, go right
+	} else if bst.compareFn(data, node.val) == 1 { // if more, go right
 		return bst.removeNode(node.right, data)
 	} else {
 		ifLeftNodeExists := node.left != nil
@@ -172,7 +178,7 @@ func (bst *BST[T]) removeNode(node *BSNode[T], data T) (*BSNode[T], bool) {
 		} else {
 			parent := bst.GetParent(node.val)
 
-			if node.val <= parent.val {
+			if bst.compareFn(node.val, parent.val) == -1 || bst.compareFn(node.val, parent.val) == 0 {
 				deletedNode := node.left
 				parent.left = nil
 				return deletedNode, true
@@ -263,7 +269,7 @@ func (bst *BST[T]) BFS(val T) (*BSNode[T], error) {
 
 	for queue.GetSize() > 0 {
 		current, _ := queue.Dequeue()
-		if current.val == val {
+		if bst.compareFn(current.val, val) == 0 {
 			node = current
 			break
 		}
@@ -308,47 +314,47 @@ func (bst *BST[T]) DFT(method DFTMethod) []T {
 
 	switch method {
 	case DFTPreOrder:
-		return preOrderTraversal(&list, bst.GetRoot())
+		return bst.preOrderTraversal(&list, bst.GetRoot())
 	case DFTInOrder:
-		return inOrderTraversal(&list, bst.GetRoot())
+		return bst.inOrderTraversal(&list, bst.GetRoot())
 	case DFTPostOrder:
-		return postOrderTraversal(&list, bst.GetRoot())
+		return bst.postOrderTraversal(&list, bst.GetRoot())
 	default:
-		return inOrderTraversal(&list, bst.GetRoot())
+		return bst.inOrderTraversal(&list, bst.GetRoot())
 	}
 }
 
-func preOrderTraversal[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+func (bst *BST[T]) preOrderTraversal(list *[]T, node *BSNode[T]) []T {
 	if node == nil {
 		return nil
 	}
 
 	*list = append(*list, node.GetVal())
-	preOrderTraversal[T](list, node.GetLeft())
-	preOrderTraversal[T](list, node.GetRight())
+	bst.preOrderTraversal(list, node.GetLeft())
+	bst.preOrderTraversal(list, node.GetRight())
 
 	return *list
 }
 
-func inOrderTraversal[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+func (bst *BST[T]) inOrderTraversal(list *[]T, node *BSNode[T]) []T {
 	if node == nil {
 		return nil
 	}
 
-	inOrderTraversal[T](list, node.GetLeft())
+	bst.inOrderTraversal(list, node.GetLeft())
 	*list = append(*list, node.GetVal())
-	inOrderTraversal[T](list, node.GetRight())
+	bst.inOrderTraversal(list, node.GetRight())
 
 	return *list
 }
 
-func postOrderTraversal[T constraints.Ordered](list *[]T, node *BSNode[T]) []T {
+func (bst *BST[T]) postOrderTraversal(list *[]T, node *BSNode[T]) []T {
 	if node == nil {
 		return nil
 	}
 
-	postOrderTraversal[T](list, node.GetLeft())
-	postOrderTraversal[T](list, node.GetRight())
+	bst.postOrderTraversal(list, node.GetLeft())
+	bst.postOrderTraversal(list, node.GetRight())
 	*list = append(*list, node.GetVal())
 
 	return *list
@@ -371,30 +377,30 @@ func (bst *BST[T]) DFS(data T, method DFTMethod) (*BSNode[T], error) {
 
 	switch method {
 	case DFTPreOrder:
-		return preOrderSearch(data, bst.GetRoot())
+		return bst.preOrderSearch(data, bst.GetRoot())
 	case DFTInOrder:
-		return inOrderSearch(data, bst.GetRoot())
+		return bst.inOrderSearch(data, bst.GetRoot())
 	case DFTPostOrder:
-		return postOrderSearch(data, bst.GetRoot())
+		return bst.postOrderSearch(data, bst.GetRoot())
 	default:
-		return inOrderSearch(data, bst.GetRoot())
+		return bst.inOrderSearch(data, bst.GetRoot())
 	}
 }
 
-func preOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], error) {
+func (bst *BST[T]) preOrderSearch(data T, node *BSNode[T]) (*BSNode[T], error) {
 	if node == nil {
 		return nil, fmt.Errorf("nil node")
 	}
-	if data == node.val {
+	if bst.compareFn(data, node.val) == 0 {
 		return node, nil
 	}
 
-	n1, err := preOrderSearch[T](data, node.GetLeft())
+	n1, err := bst.preOrderSearch(data, node.GetLeft())
 	if err == nil {
 		return n1, nil
 	}
 
-	n2, err := preOrderSearch[T](data, node.GetRight())
+	n2, err := bst.preOrderSearch(data, node.GetRight())
 	if err == nil {
 		return n2, nil
 	}
@@ -402,21 +408,21 @@ func preOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T],
 	return nil, fmt.Errorf("%v doesn't exist", data)
 }
 
-func inOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], error) {
+func (bst *BST[T]) inOrderSearch(data T, node *BSNode[T]) (*BSNode[T], error) {
 	if node == nil {
 		return nil, fmt.Errorf("nil node")
 	}
 
-	n1, err := inOrderSearch[T](data, node.GetLeft())
+	n1, err := bst.inOrderSearch(data, node.GetLeft())
 	if err == nil {
 		return n1, nil
 	}
 
-	if data == node.val {
+	if bst.compareFn(data, node.val) == 0 {
 		return node, nil
 	}
 
-	n2, err := inOrderSearch[T](data, node.GetRight())
+	n2, err := bst.inOrderSearch(data, node.GetRight())
 	if err == nil {
 		return n2, nil
 	}
@@ -424,22 +430,22 @@ func inOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], 
 	return nil, fmt.Errorf("%v doesn't exist", data)
 }
 
-func postOrderSearch[T constraints.Ordered](data T, node *BSNode[T]) (*BSNode[T], error) {
+func (bst *BST[T]) postOrderSearch(data T, node *BSNode[T]) (*BSNode[T], error) {
 	if node == nil {
 		return nil, fmt.Errorf("nil node")
 	}
 
-	n1, err := postOrderSearch[T](data, node.GetLeft())
+	n1, err := bst.postOrderSearch(data, node.GetLeft())
 	if err == nil {
 		return n1, nil
 	}
 
-	n2, err := postOrderSearch[T](data, node.GetRight())
+	n2, err := bst.postOrderSearch(data, node.GetRight())
 	if err == nil {
 		return n2, nil
 	}
 
-	if data == node.val {
+	if bst.compareFn(data, node.val) == 0 {
 		return node, nil
 	}
 
