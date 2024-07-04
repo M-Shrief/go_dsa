@@ -2,12 +2,14 @@ package heap
 
 import (
 	"testing"
+
+	"github.com/M-Shrief/go-dsa-practice/utils"
 )
 
 func TestHeap(t *testing.T) {
 	t.Run("MinHeap: Testing Push()", func(t *testing.T) {
 		isSmaller := func(a, b int) bool {
-			if Compare(a, b) == CR2 {
+			if utils.Compare(a, b) == -1 {
 				return true
 			} else {
 				return false
@@ -37,7 +39,7 @@ func TestHeap(t *testing.T) {
 
 	t.Run("MinHeap: Testing Pop()", func(t *testing.T) {
 		isSmaller := func(a, b int) bool {
-			if Compare(a, b) == CR2 {
+			if utils.Compare(a, b) == -1 {
 				return true
 			} else {
 				return false
@@ -85,7 +87,7 @@ func TestHeap(t *testing.T) {
 
 		t.Run("MinHeap: Testing Delete()", func(t *testing.T) {
 			isSmaller := func(a, b int) bool {
-				if Compare(a, b) == CR2 {
+				if utils.Compare(a, b) == -1 {
 					return true
 				} else {
 					return false
@@ -123,7 +125,7 @@ func TestHeap(t *testing.T) {
 
 	t.Run("MaxHeap: Testing Pop()", func(t *testing.T) {
 		isBigger := func(a, b int) bool {
-			if Compare(a, b) == CR1 {
+			if utils.Compare(a, b) == 1 {
 				return true
 			} else {
 				return false
@@ -153,7 +155,7 @@ func TestHeap(t *testing.T) {
 
 	t.Run("MaxHeap: Testing Pop()", func(t *testing.T) {
 		isBigger := func(a, b int) bool {
-			if Compare(a, b) == 1 {
+			if utils.Compare(a, b) == 1 {
 				return true
 			} else {
 				return false
@@ -191,7 +193,7 @@ func TestHeap(t *testing.T) {
 
 	t.Run("MaxHeap: Testing Delete()", func(t *testing.T) {
 		isBigger := func(a, b int) bool {
-			if Compare(a, b) == 1 {
+			if utils.Compare(a, b) == 1 {
 				return true
 			} else {
 				return false

@@ -2,31 +2,11 @@ package heap
 
 import (
 	"reflect"
-
-	"golang.org/x/exp/constraints"
 )
 
 type Heap[T any] struct {
 	list      []T
 	compareFn func(a, b T) bool
-}
-
-type CResult int
-
-const (
-	CR1 CResult = 1
-	CR2 CResult = -1
-	CR3 CResult = 0
-)
-
-func Compare[T constraints.Ordered](a, b T) CResult {
-	if a > b {
-		return 1
-	} else if a < b {
-		return -1
-	} else {
-		return 0
-	}
 }
 
 func NewHeap[T any](compareFn func(a, b T) bool) *Heap[T] {

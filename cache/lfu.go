@@ -2,6 +2,7 @@ package cache
 
 import (
 	"github.com/M-Shrief/go-dsa-practice/heap"
+	"github.com/M-Shrief/go-dsa-practice/utils"
 )
 
 type lfuNode[T any] struct {
@@ -24,7 +25,7 @@ type LFU[T any] struct {
 // Create a new LFU with a certain capacity.
 func NewLFU[T any](capacity int) *LFU[T] {
 	isSmaller := func(a, b *lfuNode[T]) bool {
-		if heap.Compare(a.freq, b.freq) == heap.CR2 {
+		if utils.Compare(a.freq, b.freq) == -1 {
 			return true
 		} else {
 			return false
