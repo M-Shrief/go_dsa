@@ -36,8 +36,8 @@ func TestGraph(t *testing.T) {
 			t.Errorf("Got: %v, Want: %v", got2, want2)
 		}
 
-		got3, ok := g.BFT(1)
-		want3 := []int{1, 2, 0, 3, 4}
+		got3, ok := g.BFT(2)
+		want3 := []int{2, 0, 3, 1, 4}
 		if ok != nil {
 			t.Error("Not Okay")
 		}
