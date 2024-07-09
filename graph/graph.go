@@ -7,12 +7,13 @@ import (
 )
 
 type Graph[T comparable] struct {
-	adjList map[T][]T
+	adjList    map[T][]T
+	isDirected bool
 }
 
-func NewGraph[T comparable]() *Graph[T] {
+func NewGraph[T comparable](isDirected bool) *Graph[T] {
 	mp := map[T][]T{}
-	return &Graph[T]{mp}
+	return &Graph[T]{adjList: mp, isDirected: isDirected}
 }
 
 func (g *Graph[T]) HasVertex(n T) bool {
@@ -38,6 +39,9 @@ func (g *Graph[T]) AddEdge(n1, n2 T) {
 	}
 
 	g.adjList[n1] = append(g.adjList[n1], n2)
+	if g.isDirected {
+		g.adjList[n2] = append(g.adjList[n2], n1)
+	}
 }
 
 func (g *Graph[T]) BFT(n T) ([]T, error) {
