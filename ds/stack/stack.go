@@ -1,6 +1,6 @@
 package stack
 
-import "github.com/M-Shrief/go-dsa-practice/linkedlist"
+import "github.com/M-Shrief/go-dsa-practice/ds/linkedlist"
 
 type Stack[T any] struct {
 	list linkedlist.Singly[T]

@@ -3,7 +3,7 @@ package cache
 // Check this: https://www.geeksforgeeks.org/lru-cache-implementation/#lru-cache-implementation-using-queue-and-hashing
 
 import (
-	"github.com/M-Shrief/go-dsa-practice/linkedlist"
+	"github.com/M-Shrief/go-dsa-practice/ds/linkedlist"
 )
 
 // LRU cache

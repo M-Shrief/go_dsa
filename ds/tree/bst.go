@@ -3,7 +3,7 @@ package tree
 import (
 	"fmt"
 
-	"github.com/M-Shrief/go-dsa-practice/queue"
+	"github.com/M-Shrief/go-dsa-practice/ds/queue"
 )
 
 type BSNode[T any] struct {

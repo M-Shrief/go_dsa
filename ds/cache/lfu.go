@@ -1,7 +1,7 @@
 package cache
 
 import (
-	"github.com/M-Shrief/go-dsa-practice/heap"
+	"github.com/M-Shrief/go-dsa-practice/ds/heap"
 	"github.com/M-Shrief/go-dsa-practice/utils"
 )
 

@@ -2,7 +2,7 @@
 package cache
 
 import (
-	"github.com/M-Shrief/go-dsa-practice/linkedlist"
+	"github.com/M-Shrief/go-dsa-practice/ds/linkedlist"
 )
 
 // MRU cache

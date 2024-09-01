@@ -3,7 +3,7 @@ package graph
 import (
 	"fmt"
 
-	"github.com/M-Shrief/go-dsa-practice/queue"
+	"github.com/M-Shrief/go-dsa-practice/ds/queue"
 )
 
 type Graph[T comparable] struct {

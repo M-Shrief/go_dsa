@@ -1,6 +1,6 @@
 package queue
 
-import "github.com/M-Shrief/go-dsa-practice/linkedlist"
+import "github.com/M-Shrief/go-dsa-practice/ds/linkedlist"
 
 type Queue[T any] struct {
 	list linkedlist.Singly[T]
