@@ -262,7 +262,7 @@ func TestDoubly(t *testing.T) {
 		list.AddLast(4)
 
 		want := int(1)
-		got := list.DeleteByNode(list.head)
+		got, _ := list.DeleteByNode(list.head)
 		if got != want {
 			t.Errorf("got: %v, want: %v", got, want)
 		}
@@ -271,7 +271,7 @@ func TestDoubly(t *testing.T) {
 		}
 
 		want2 := int(3)
-		got2 := list.DeleteByNode(list.head.next)
+		got2, _ := list.DeleteByNode(list.head.next)
 		if got2 != want2 {
 			t.Errorf("got: %v, want: %v", got2, want2)
 		}
@@ -281,7 +281,7 @@ func TestDoubly(t *testing.T) {
 		}
 
 		want3 := int(4)
-		got3 := list.DeleteByNode(list.tail)
+		got3, _ := list.DeleteByNode(list.tail)
 		if got3 != want3 {
 			t.Errorf("got: %v, want: %v", got3, want3)
 		}
@@ -291,13 +291,18 @@ func TestDoubly(t *testing.T) {
 		}
 
 		want4 := int(2)
-		got4 := list.DeleteByNode(list.head)
+		got4, _ := list.DeleteByNode(list.head)
 		if got4 != want4 {
 			t.Errorf("got: %v, want: %v", got4, want4)
 		}
 
 		if list.size != 0 {
 			t.Errorf("Size: %v, want: %v", list.size, 0)
+		}
+
+		_, isDeleted := list.DeleteByNode(nil)
+		if isDeleted {
+			t.Errorf("Not Okay!")
 		}
 	})
 

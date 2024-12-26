@@ -201,14 +201,18 @@ Delete by prividing the target DoublyNode from LinkedList
 
 Returns deletedNode's value.
 */
-func (list *Doubly[T]) DeleteByNode(node *DoublyNode[T]) T {
+func (list *Doubly[T]) DeleteByNode(node *DoublyNode[T]) (T, bool) {
+	if node == nil {
+		var val T
+		return val, false
+	}
 	if node == list.head {
-		val, _ := list.DeleteFirst()
-		return val
+		return list.DeleteFirst()
+
 	}
 	if node == list.tail {
-		val, _ := list.DeleteLast()
-		return val
+		return list.DeleteLast()
+
 	}
 	node.prev.next = node.next
 	node.next.prev = node.prev
@@ -216,7 +220,7 @@ func (list *Doubly[T]) DeleteByNode(node *DoublyNode[T]) T {
 	node.prev = nil
 
 	list.size--
-	return node.val
+	return node.val, true
 }
 
 // Print LinkedList nodes in order.
