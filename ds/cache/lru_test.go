@@ -54,6 +54,26 @@ func TestLRU(t *testing.T) {
 		if got7.GetVal().value != 4 {
 			t.Errorf("got: %v, expected: %v", got5.GetVal().value, 4)
 		}
+
+		_, exist := lru.Get("two")
+		if exist {
+			t.Error("Not Okay")
+		}
+		got8, exist := lru.Get("three")
+		if !exist {
+			t.Error("Not Okay")
+		}
+		if got8 != 3 {
+			t.Errorf("got: %v, expected: %v", got8, 3)
+		}
+
+		got9, exist := lru.Get("four")
+		if !exist {
+			t.Error("Not Okay")
+		}
+		if got9 != 4 {
+			t.Errorf("got: %v, expected: %v", got9, 4)
+		}
 	})
 
 	t.Run("Testing Get()", func(t *testing.T) {

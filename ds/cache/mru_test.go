@@ -54,6 +54,26 @@ func TestMRU(t *testing.T) {
 		if got7.GetVal().value != 4 {
 			t.Errorf("got: %v, expected: %v", got7.GetVal().value, 4)
 		}
+
+		_, exist := mru.Get("two")
+		if exist {
+			t.Error("Not Okay")
+		}
+		got8, exist := mru.Get("four")
+		if !exist {
+			t.Error("Not Okay")
+		}
+		if got8 != 4 {
+			t.Errorf("got: %v, expected: %v", got8, 4)
+		}
+
+		got9, exist := mru.Get("five")
+		if !exist {
+			t.Error("Not Okay")
+		}
+		if got9 != 5 {
+			t.Errorf("got: %v, expected: %v", got9, 5)
+		}
 	})
 
 	t.Run("Testing Get()", func(t *testing.T) {

@@ -65,7 +65,9 @@ func (lru *LRU[T]) Get(key string) (T, bool) {
 		return r, false
 	}
 	lru.dl.DeleteByNode(node)
+
 	lru.dl.AddFirst(node.GetVal())
+	lru.storage[key] = lru.dl.GetHead()
 	nodeVal := node.GetVal().value
 	return nodeVal, true
 }

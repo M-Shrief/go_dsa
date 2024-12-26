@@ -65,6 +65,7 @@ func (mru *MRU[T]) Get(key string) (T, bool) {
 	}
 	mru.dl.DeleteByNode(node)
 	mru.dl.AddLast(node.GetVal())
+	mru.storage[key] = mru.dl.GetTail()
 	nodeVal := node.GetVal().value
 	return nodeVal, true
 }
