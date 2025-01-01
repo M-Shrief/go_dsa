@@ -24,7 +24,7 @@ type LFU[T any] struct {
 
 // Create a new LFU with a certain capacity.
 func NewLFU[T any](capacity int) *LFU[T] {
-	isSmaller := func(a, b *lfuNode[T]) bool {
+	isLeastFrequent := func(a, b *lfuNode[T]) bool {
 		if utils.Compare(a.freq, b.freq) == -1 {
 			return true
 		} else {
@@ -32,7 +32,7 @@ func NewLFU[T any](capacity int) *LFU[T] {
 		}
 	}
 	return &LFU[T]{
-		mh:       heap.NewHeap(isSmaller),
+		mh:       heap.NewHeap(isLeastFrequent),
 		storage:  make(map[string]*lfuNode[T], capacity),
 		size:     0,
 		capacity: capacity,
